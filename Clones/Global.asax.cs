@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AgeOfClones.Util;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Web.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +20,15 @@ namespace Clones
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // внедрение зависимостей
+            NinjectModule moduleIoC = new ModuleIoC();
+            //NinjectModule serviceModule = new ServiceModule("DefaultConnection");
+            //var kernel = new StandardKernel(moduleIoC, serviceModule);
+            var kernel = new StandardKernel(moduleIoC);
+            //отключаем валидацию нинжекта
+            kernel.Unbind<ModelValidatorProvider>();
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
 }

@@ -1,30 +1,110 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Application.Management.Models;
+using Application.Management.Services.Interfaces;
 
 namespace Clones.Controllers
 {
     public class HomeController : Controller
     {
+        IProfileService _profileService;
+
+        public HomeController(IProfileService profileService)
+        {
+            _profileService = profileService;
+        }
+
+        // GET: Home
         public ActionResult Index()
         {
-            return View();
+            var profiles = _profileService.GetProfiles();
+            return View(profiles);
         }
 
-        public ActionResult About()
+        // GET: Home/Details/5
+        public ActionResult Details(int? id)
         {
-            ViewBag.Message = "Your application description page.";
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            return View();
+            var profile = _profileService.GetProfile(id.Value);
+
+            if (profile == null)
+                return HttpNotFound();
+
+            return View(profile);
         }
 
-        public ActionResult Contact()
+        // GET: Home/Create
+        public ActionResult Create()
         {
-            ViewBag.Message = "Your contact page.";
+            return View(new ProfileModel());
+        }
 
-            return View();
+        // POST: Home/Create
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "Id,Name")] ProfileModel profile)
+        {
+            if (ModelState.IsValid)
+            {
+                _profileService.CreateProfile(profile);
+                return RedirectToAction("Index");
+            }
+
+            return View(profile);
+        }
+
+        // GET: Home/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            ProfileModel profile = _profileService.GetProfile(id.Value);
+
+            if (profile == null)
+                return HttpNotFound();
+
+            return View(profile);
+        }
+
+        // POST: Home/Edit/5
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "Id,Name")] ProfileModel profile)
+        {
+            if (ModelState.IsValid)
+            {
+                _profileService.UpdateProfile(profile);
+                return RedirectToAction("Index");
+            }
+
+            return View(profile);
+        }
+
+        // GET: Home/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            ProfileModel profile = _profileService.GetProfile(id.Value);
+
+            if (profile == null)
+                return HttpNotFound();
+
+            return View(profile);
+        }
+
+        // POST: Home/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            _profileService.DeleteProfile(id);
+            return RedirectToAction("Index");
         }
     }
 }
