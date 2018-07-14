@@ -27,12 +27,12 @@ namespace Application.Management
             return models;
         }
 
-        public ProfileModel GetProfile(int id)
-        {
-            var profile = _profileUOW.Profiles.Get(id);
+        //public ProfileModel GetProfile(int id)
+        //{
+        //    var profile = _profileUOW.Profiles.Get(id);
 
-            return new ProfileModel(profile);
-        }
+        //    return new ProfileModel(profile);
+        //}
 
         //public AccountModel GetAccount(int id)
         //{
@@ -60,23 +60,23 @@ namespace Application.Management
             _profileUOW.Save();
         }
 
-        //public void CreateAccount(AccountModel account)
-        //{
-        //    _profileUOW.Accounts.Create(account);
-        //    _profileUOW.Save();
-        //}
+        public void CreateAccount(AccountModel account)
+        {
+            _profileUOW.Accounts.Create(account);
+            _profileUOW.Save();
+        }
 
-        //public void UpdateAccount(AccountModel account)
-        //{
-        //    _profileUOW.Accounts.Update(account);
-        //    _profileUOW.Save();
-        //}
+        public void UpdateAccount(AccountModel account)
+        {
+            _profileUOW.Accounts.Update(account);
+            _profileUOW.Save();
+        }
 
-        //public void DeleteAccount(int id)
-        //{
-        //    _profileUOW.Accounts.Delete(id);
-        //    _profileUOW.Save();
-        //}
+        public void DeleteAccount(int id)
+        {
+            _profileUOW.Accounts.Delete(id);
+            _profileUOW.Save();
+        }
 
         public void Dispose()
         {

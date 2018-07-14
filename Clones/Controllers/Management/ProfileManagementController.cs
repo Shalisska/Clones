@@ -44,12 +44,45 @@ namespace Clones.Controllers.Management
             }
 
             return PartialView("_CreateProfile", profile);
+            //return Content("Error");
         }
 
         [HttpPost]
         public ActionResult DeleteProfile(int id)
         {
             _profileManagementService.DeleteProfile(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
+        {
+            _profileManagementService.UpdateAccount(account);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CreateAccount(int id)
+        {
+            return PartialView("_CreateAccount", new AccountModel() { ProfileId = id});
+        }
+
+        [HttpPost]
+        public ActionResult CreateAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
+        {
+            if (ModelState.IsValid)
+            {
+                _profileManagementService.CreateAccount(account);
+                return RedirectToAction("Index");
+            }
+
+            return PartialView("_CreateAccount", account);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAccount(int id)
+        {
+            _profileManagementService.DeleteAccount(id);
             return RedirectToAction("Index");
         }
     }

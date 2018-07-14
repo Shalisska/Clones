@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Entities
 
         public Account() { }
 
-        public Account(IAccountAdapter adapter)
+        public Account(IAccountAdapter adapter) : this()
         {
             Id = adapter.Id;
             Name = adapter.Name;

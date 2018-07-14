@@ -1,13 +1,14 @@
-﻿@model Application.Models.ProfileModel
+﻿@model Application.Models.AccountModel
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>New Profile</h4>
+        <h4>New Account</h4>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProfileId)
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-sm-12", @style = "text-align: left; font-weight: normal;" })
             <div class="col-sm-5">

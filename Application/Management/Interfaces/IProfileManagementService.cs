@@ -6,7 +6,7 @@ namespace Application.Management.Interfaces
     public interface IProfileManagementService
     {
         IEnumerable<ProfileModel> GetProfiles();
-        ProfileModel GetProfile(int id);
+        //ProfileModel GetProfile(int id);
         //AccountModel GetAccount(int id);
 
         void CreateProfile(ProfileModel profile);
@@ -14,10 +14,10 @@ namespace Application.Management.Interfaces
 
         void DeleteProfile(int id);
 
-        //void CreateAccount(AccountModel account);
-        //void UpdateAccount(AccountModel account);
+        void CreateAccount(AccountModel account);
+        void UpdateAccount(AccountModel account);
 
-        //void DeleteAccount(int id);
+        void DeleteAccount(int id);
 
         void Dispose();
     }
