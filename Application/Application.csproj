@@ -47,6 +47,8 @@
     <Compile Include="Data\Repositories\IProfileRepository.cs" />
     <Compile Include="Data\Repositories\IRepositorySimple.cs" />
     <Compile Include="Data\UnitsOfWork\IProfileUnitOfWork.cs" />
+    <Compile Include="Management\Interfaces\IProfileManagementService.cs" />
+    <Compile Include="Management\ProfileManagementService.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

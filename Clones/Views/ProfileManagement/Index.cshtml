@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Application.Models.ProfileModel>
+
+@{
+    ViewBag.Title = "Profiles Management";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Ajax.ActionLink("Create New Profile", "CreateProfile", new AjaxOptions { UpdateTargetId = "create-profile" })
+</p>
+<div id="create-profile"></div>
+
+<form method="post" id="profile-form">
+    @Html.AntiForgeryToken()
+    <p>@Html.DisplayNameFor(model => model.Name)</p>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-horizontal">
+        @foreach (var item in Model)
+        {
+            <div class="form-group" id="profile-@(item.Id)">
+                <input type="hidden" id="profile-id-@(item.Id)" name="profile-id-@(item.Id)" value="@(item.Id)" />
+
+                <div class="col-sm-5">
+                    <input type="text" id="profile-name-@(item.Id)" name="profile-name-@(item.Id)" value="@(item.Name)" class="form-control" style="max-width: none;" required="required" data-val="true" />
+                </div>
+
+                <a id="edit-profile-@(item.Id)" class="btn btn-primary j-save-model" data-id="@(item.Id)">Save</a>
+                <a id="delete-profile-@(item.Id)" class="btn btn-danger j-delete-profile" data-id="@(item.Id)">Delete</a>
+
+                <span class="field-validation-valid text-danger" data-valmsg-for="profile-name-@(item.Id)" data-valmsg-replace="true"></span>
+            </div>
+            <div style="margin-bottom: 40px;">
+                @foreach (var el in item.Accounts)
+                {
+                    <div class="form-group" id="account-@(el.Id)">
+                        <input type="hidden" id="account-id-@(el.Id)" name="account-id-@(el.Id)" value="@(el.Id)" />
+                        <input type="hidden" id="account-profile-id-@(el.ProfileId)" name="account-profile-id-@(el.ProfileId)" value="@(el.ProfileId)" />
+
+                        <div class="col-sm-5" style="padding-left: 50px;">
+                            <input type="text" id="account-name-@(el.Id)" name="account-name-@(el.Id)" value="@(el.Name)" class="form-control" style="max-width: none;" required="required" data-val="true" />
+                        </div>
+
+                        <a id="edit-account-@(el.Id)" class="btn btn-primary j-save-model" data-id="@(el.Id)">Save</a>
+                        <a id="delete-account-@(el.Id)" class="btn btn-danger">Delete</a>
+
+                        <span class="field-validation-valid text-danger" data-valmsg-for="account-name-@(item.Id)" data-valmsg-replace="true"></span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</form>
+
+<div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

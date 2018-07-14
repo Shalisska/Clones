@@ -164,6 +164,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Management\ManagementController.cs" />
+    <Compile Include="Controllers\Management\ProfileManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,22 +185,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\js.js" />
+    <Content Include="Scripts\plugins\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\plugins\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\plugins\bootstrap.js" />
+    <Content Include="Scripts\plugins\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Scripts\plugins\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.js" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\plugins\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\plugins\jquery.validate.js" />
+    <Content Include="Scripts\plugins\jquery.validate.min.js" />
+    <Content Include="Scripts\plugins\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\plugins\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\plugins\modernizr-2.8.3.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -217,6 +222,9 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\ProfileManagement\Index.cshtml" />
+    <Content Include="Views\Management\Index.cshtml" />
+    <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -231,8 +239,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\plugins\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj">
