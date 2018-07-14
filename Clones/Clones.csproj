@@ -235,9 +235,9 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application.Management\Application.Management.csproj">
-      <Project>{83356d25-4113-4cf5-b835-b7866cd833e8}</Project>
-      <Name>Application.Management</Name>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{f5829201-c1f6-4067-bd6c-e6c5b7c5077f}</Project>
+      <Name>Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
       <Project>{e7d51e01-e698-47a8-b40b-d6d1668fd0e4}</Project>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Management.Data.UnitsOfWork;
+using Application.Data.UnitsOfWork;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.EF;
-using Application.Management.Data.Repositories;
+using Application.Data.Repositories;
 
 namespace Infrastructure.Data.UnitsOfWork
 {

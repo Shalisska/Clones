@@ -1,4 +1,4 @@
-﻿using Application.Management.Adapters;
+﻿using Application.Adapters;
 
 namespace Infrastructure.Data.Entities
 {

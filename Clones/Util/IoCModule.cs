@@ -1,6 +1,6 @@
-﻿using Application.Management.Data.UnitsOfWork;
-using Application.Management.Services;
-using Application.Management.Services.Interfaces;
+﻿using Application.Data.UnitsOfWork;
+using Application.Services;
+using Application.Services.Interfaces;
 using Infrastructure.Data.UnitsOfWork;
 using Ninject.Modules;
 

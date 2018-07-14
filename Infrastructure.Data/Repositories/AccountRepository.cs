@@ -1,12 +1,12 @@
-﻿using Application.Management.Data.Repositories;
-using Application.Management.Models;
+﻿using Application.Data.Repositories;
+using Application.Models;
 using Infrastructure.Data.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Management.Adapters;
+using Application.Adapters;
 using Infrastructure.Data.Entities;
 using System.Data.Entity;
 

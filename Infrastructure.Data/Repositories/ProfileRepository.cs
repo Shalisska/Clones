@@ -1,5 +1,5 @@
-﻿using Application.Management.Adapters;
-using Application.Management.Data.Repositories;
+﻿using Application.Adapters;
+using Application.Data.Repositories;
 using Infrastructure.Data.EF;
 using Infrastructure.Data.Entities;
 using System.Collections.Generic;

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Application.Management.Models;
-using Application.Management.Services.Interfaces;
+using Application.Models;
+using Application.Services.Interfaces;
 
 namespace Clones.Controllers
 {
