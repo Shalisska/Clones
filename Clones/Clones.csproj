@@ -166,6 +166,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Management\ProfileManagementController.cs" />
+    <Compile Include="Controllers\Management\StockManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -226,6 +227,8 @@
     <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\ProfileManagement\_CreateAccount.cshtml" />
     <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
+    <Content Include="Views\StockManagement\Index.cshtml" />
+    <Content Include="Views\StockManagement\_CreateStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

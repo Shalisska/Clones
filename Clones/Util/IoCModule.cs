@@ -17,8 +17,10 @@ namespace AgeOfClones.Util
         {
             Bind<IProfileService>().To<ProfileService>();
             Bind<IProfileManagementService>().To<ProfileManagementService>();
+            Bind<IStockManagementService>().To<StockManagementService>();
 
             Bind<IProfileUnitOfWork>().To<ProfileUnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IStockUnitOfWork>().To<StockUnitOfWork>().WithConstructorArgument(connectionString);
         }
     }
 }

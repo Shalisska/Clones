@@ -43,14 +43,20 @@
   <ItemGroup>
     <Compile Include="Adapters\IAccountAdapter.cs" />
     <Compile Include="Adapters\IProfileAdapter.cs" />
+    <Compile Include="Adapters\IStockAdapter.cs" />
     <Compile Include="Data\Repositories\IAccountRepository.cs" />
     <Compile Include="Data\Repositories\IProfileRepository.cs" />
     <Compile Include="Data\Repositories\IRepositorySimple.cs" />
+    <Compile Include="Data\Repositories\IStockRepository.cs" />
     <Compile Include="Data\UnitsOfWork\IProfileUnitOfWork.cs" />
+    <Compile Include="Data\UnitsOfWork\IStockUnitOfWork.cs" />
     <Compile Include="Management\Interfaces\IProfileManagementService.cs" />
+    <Compile Include="Management\Interfaces\IStockManagementService.cs" />
     <Compile Include="Management\ProfileManagementService.cs" />
+    <Compile Include="Management\StockManagementService.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\StockModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IProfileService.cs" />
     <Compile Include="Services\ProfileService.cs" />
