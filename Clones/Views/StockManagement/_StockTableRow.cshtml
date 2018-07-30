@@ -1,0 +1,22 @@
+﻿@model Application.Models.StockModel
+
+@using Clones.Helpers;
+
+@{
+    var item = Model;
+    var itemName = "model";
+}
+<td>
+    @Html.HiddenForNew(modelItem => item.Id, $"item.id-{item.Id}")
+    @Html.DisplayFor(modelItem => item.Id)
+</td>
+<td>
+    @Html.EditorForNew(modelItem => item.Name, $"item.Name-{item.Id}", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageForNew(modelItem => item.Name, $"item.Name-{item.Id}")
+</td>
+<td>
+    <a id="@($"edit-{itemName}-{item.Id}")" class="btn btn-primary j-save-model" data-id="@(item.Id)">Save</a>
+    <a id="@($"delete-{itemName}-{item.Id}")" class="btn btn-danger j-delete-model" data-id="@(item.Id)" data-name="@(item.Name)" data-toggle="modal" data-target="#deleteModel">Delete</a>
+</td>
+
+

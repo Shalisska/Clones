@@ -160,9 +160,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Helpers\ControlsHelper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Util\AjaxResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Management\ManagementController.cs" />
     <Compile Include="Controllers\Management\ProfileManagementController.cs" />
@@ -178,6 +180,16 @@
     <Content Include="App_Data\ClonesTest_log.ldf">
       <DependentUpon>ClonesTest.mdf</DependentUpon>
     </Content>
+    <Content Include="CodeTemplates\TemplateTableRow.tt" />
+    <Content Include="CodeTemplates\TemplateTable.tt" />
+    <Content Include="CodeTemplates\Generator1.tt" />
+    <Content Include="App_Code\HTMLHelpers\ControlsHelper.cshtml" />
+    <Content Include="CodeTemplates\MvcView\Create1.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\TableIndex.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\TableEdit.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\TableRow.cs.t4" />
+    <None Include="CodeTemplates\MvcView\TableCreate.cs.t4" />
+    <Content Include="CodeTemplates\TemplateCreate.tt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -194,6 +206,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
+    <Content Include="CodeTemplates\MvcView\List1.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <Content Include="CodeTemplates\MvcView\Edit1.cs.t4" />
     <None Include="Scripts\plugins\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\plugins\jquery-3.3.1.js" />
     <Content Include="Scripts\plugins\jquery-3.3.1.min.js" />
@@ -229,6 +245,9 @@
     <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
     <Content Include="Views\StockManagement\Index.cshtml" />
     <Content Include="Views\StockManagement\_CreateStock.cshtml" />
+    <Content Include="Views\StockManagement\_StockTableRow.cshtml" />
+    <Content Include="Views\StockManagement\_EditTable.cshtml" />
+    <Content Include="Views\Shared\_DeleteModelPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

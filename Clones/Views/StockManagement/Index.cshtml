@@ -1,40 +1,38 @@
-﻿@model IEnumerable<Application.Models.StockModel>
+﻿@using Application.Models;
+@model IEnumerable<Application.Models.StockModel>
+@{
+    var controllerName = "StockManagement";
+    var createActionName = "CreateStock";
+    var getTableActionName = "GetTable";
+    var editActionName = "EditStock";
+    var deleteActionName = "DeleteStock";
+}
 
 @{
-    ViewBag.Title = "Stock Management";
+    ViewBag.Title = "Index";
+    var modelForPopup = Model.Any() ? Model.FirstOrDefault() : new Application.Models.StockModel();
 }
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Ajax.ActionLink("Create New Stock", "CreateStock", new AjaxOptions { UpdateTargetId = "create" })
-</p>
-<div id="create"></div>
 
-<form method="post" id="stock-form">
-    @Html.AntiForgeryToken()
-    <p>@Html.DisplayNameFor(model => model.Name)</p>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-horizontal">
-        @foreach (var item in Model)
-        {
-            <div class="form-group" id="stock-@(item.Id)">
-                @Html.HiddenFor(id => item.Id, new { @id = $"stock-id-{item.Id}", @name = $"stock-id-{item.Id}" })
-
-                <div class="col-sm-5">
-                    <input type="text" id="stock-name-@(item.Id)" name="stock-name-@(item.Id)" value="@(item.Name)" class="form-control" style="max-width: none;" required="required" data-val="true" />
-                </div>
-
-                <a id="edit-stock-@(item.Id)" class="btn btn-primary j-save-stock" data-id="@(item.Id)">Save</a>
-                <a id="delete-stock-@(item.Id)" class="btn btn-danger j-delete-stock" data-id="@(item.Id)">Delete</a>
-
-                <span class="field-validation-valid text-danger" data-valmsg-for="stock-name-@(item.Id)" data-valmsg-replace="true"></span>
-            </div>
-        }
+<div id="create" data-create="/StockManagement/CreateStock" data-create-new="@($"/{controllerName}/{createActionName}")">
+    <button class="j-show btn btn-primary" style="margin-bottom: 15px;">Create New</button>
+    <div class="j-hidden-block" style="display: none;">
+        @{Html.RenderPartial("_CreateStock", new Application.Models.StockModel()); }
     </div>
-</form>
+</div>
+
+<div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">
+    @{ Html.RenderPartial("_EditTable");}
+</div>
+
+@Html.Partial("_DeleteModelPopup", modelForPopup)
+
+<div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

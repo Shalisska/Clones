@@ -1,0 +1,134 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@using Application.Models;
+
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+<#
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+Version requiredMvcVersion = new Version("5.1.0.0");
+bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+#>
+@{
+	var controllerName = "";
+	var createActionName = "";
+	var getTableActionName = "";
+	var editActionName = "";
+	var deleteActionName = "";
+}
+<#
+if(IsPartialView) {
+#>
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+	ViewBag.Title = "<#= ViewName#>";
+	var modelForPopup = Model.Any() ? Model.FirstOrDefault() : <#= "new " + ViewDataTypeName + "()" #>;
+<#
+	if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+	Layout = "<#= LayoutPageFile#>";
+<#
+	}
+#>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<#
+} else {
+#>
+
+@{
+Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<title><#= ViewName #></title>
+	</head>
+	<body>
+<#
+PushIndent("    ");
+}
+#>
+<#
+if (ReferenceScriptLibraries) {
+#>
+<#
+if (!IsLayoutPageSelected && IsBundleConfigPresent) {
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<#
+}
+#>
+<#
+else if (!IsLayoutPageSelected) {
+#>
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+<#
+}
+#>
+
+<div id="create" data-create="@($"/{controllerName}/{createActionName}")">
+    <button class="j-show btn btn-primary" style="margin-bottom: 15px;">Create New</button>
+    <div class="j-hidden-block" style="display: none;">
+        @{Html.RenderPartial("_Create", <#= "new " + ViewDataTypeName + "()" #>); }
+    </div>
+</div>
+
+<div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">
+    @{ Html.RenderPartial("_EditTable");}
+</div>
+
+@Html.Partial("_DeleteModelPopup", modelForPopup)
+
+<div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
+
+<#
+if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
+#>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+<#
+}
+#>
+<#
+else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
+#>
+
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

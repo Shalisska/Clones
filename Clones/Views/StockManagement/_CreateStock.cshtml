@@ -3,20 +3,23 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>New Stock</h4>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-sm-12", @style = "text-align: left; font-weight: normal;" })
-            <div class="col-sm-5">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "max-width: none;" } })
-            </div>
-            <input type="submit" value="Create" class="btn btn-default" />
-            @Html.ActionLink("Cancel", "Index")
-
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <table class="table">
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                <button class="btn btn-primary j-create-model">Create</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+            </td>
+        </tr>
+    </table>
 }

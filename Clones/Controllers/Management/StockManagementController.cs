@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Application.Management.Interfaces;
 using Application.Models;
+using Clones.Util;
 
 namespace Clones.Controllers.Management
 {
@@ -24,29 +26,30 @@ namespace Clones.Controllers.Management
             return View(stocks);
         }
 
+        public ActionResult GetTable()
+        {
+            var stocks = _stockManagementService.GetStocks();
+            return PartialView("_EditTable", stocks);
+        }
+
         [HttpPost]
         public ActionResult EditStock([Bind(Include = "Id,Name")] StockModel stock)
         {
             _stockManagementService.UpdateStock(stock);
 
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult CreateStock()
-        {
-            return PartialView("_CreateStock", new StockModel());
+            return PartialView("_StockTableRow", stock);
         }
 
         [HttpPost]
-        public ActionResult CreateStock([Bind(Include = "Id,Name")] StockModel stock)
+        public AjaxResult CreateStock([Bind(Include = "Id,Name")] StockModel stock)
         {
             if (ModelState.IsValid)
             {
                 _stockManagementService.CreateStock(stock);
-                return RedirectToAction("Index");
+                return new AjaxResult(AjaxResultState.OK);
             }
 
-            return PartialView("_CreateStock", stock);
+            return new AjaxResult(AjaxResultState.Error);
         }
 
         [HttpPost]

@@ -27,6 +27,12 @@ namespace Application.Management
             return models;
         }
 
+        public StockModel GetStock(int id)
+        {
+            var stock = _stockUOW.Stocks.Get(id);
+            return new StockModel(stock);
+        }
+
         public void CreateStock(StockModel stock)
         {
             _stockUOW.Stocks.Create(stock);
