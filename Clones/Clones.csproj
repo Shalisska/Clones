@@ -182,7 +182,7 @@
     </Content>
     <Content Include="CodeTemplates\TemplateTableRow.tt" />
     <Content Include="CodeTemplates\TemplateTable.tt" />
-    <Content Include="CodeTemplates\Generator1.tt" />
+    <Content Include="CodeTemplates\TemplateTableIndex.tt" />
     <Content Include="App_Code\HTMLHelpers\ControlsHelper.cshtml" />
     <Content Include="CodeTemplates\MvcView\Create1.cs.t4" />
     <Content Include="CodeTemplates\MvcView\TableIndex.cs.t4" />

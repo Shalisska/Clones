@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" HostSpecific="True" #>
 <#@ output extension=".cshtml" #>
 <#@ include file="Imports.include.t4" #>
-@using Clones.Helpers;
+
 @model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
 <#
 // "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
@@ -82,11 +82,9 @@ else if (!IsLayoutPageSelected) {
 }
 #>
 
-<div id="create" data-create="@($"/{controllerName}/{createActionName}")">
-    <button class="j-show btn btn-primary" style="margin-bottom: 15px;">Create New</button>
-    <div class="j-hidden-block" style="display: none;">
-        @{Html.RenderPartial("_Create", <#= "new " + ViewDataTypeName + "()" #>); }
-    </div>
+<button class="j-show btn btn-primary" data-show="#create" style="margin-bottom: 15px;">Create New</button>
+<div id="create" data-create="@($"/{controllerName}/{createActionName}")" style="display: none;">
+	@{Html.RenderPartial("_Create", <#= "new " + ViewDataTypeName + "()" #>); }
 </div>
 
 <div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">

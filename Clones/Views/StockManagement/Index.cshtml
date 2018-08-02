@@ -1,5 +1,4 @@
-﻿@using Application.Models;
-@model IEnumerable<Application.Models.StockModel>
+﻿@model IEnumerable<Application.Models.StockModel>
 @{
     var controllerName = "StockManagement";
     var createActionName = "CreateStock";
@@ -15,12 +14,9 @@
 
 <h2>@ViewBag.Title</h2>
 
-
-<div id="create" data-create="/StockManagement/CreateStock" data-create-new="@($"/{controllerName}/{createActionName}")">
-    <button class="j-show btn btn-primary" style="margin-bottom: 15px;">Create New</button>
-    <div class="j-hidden-block" style="display: none;">
-        @{Html.RenderPartial("_CreateStock", new Application.Models.StockModel()); }
-    </div>
+<button class="j-show btn btn-primary" data-show="#create" style="margin-bottom: 15px;">Create New</button>
+<div id="create" data-create="@($"/{controllerName}/{createActionName}")" style="display: none;">
+    @{Html.RenderPartial("_CreateStock", new Application.Models.StockModel()); }
 </div>
 
 <div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">

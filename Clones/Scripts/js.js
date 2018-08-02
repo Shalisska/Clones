@@ -147,7 +147,8 @@
     };
 
     $('.j-show').click(function (e) {
-        $(this).next('.j-hidden-block').toggle('hide');
+        var hiddenBlock = $(this).data('show');
+        $(hiddenBlock).toggle('hide');
     });
 
     var DeleteModel = function ($this) {
