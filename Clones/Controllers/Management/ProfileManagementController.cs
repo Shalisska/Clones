@@ -1,7 +1,10 @@
 ﻿using Application.Management.Interfaces;
 using Application.Models;
+using Clones.Util;
 using System.Net;
 using System.Web.Mvc;
+using Clones.Models;
+using System.Collections.Generic;
 
 namespace Clones.Controllers.Management
 {
@@ -21,30 +24,30 @@ namespace Clones.Controllers.Management
             return View(profiles);
         }
 
+        public ActionResult GetTable()
+        {
+            var profiles = _profileManagementService.GetProfiles();
+            return PartialView("_EditTable", profiles);
+        }
+
         [HttpPost]
         public ActionResult EditProfile([Bind(Include = "Id,Name")] ProfileModel profile)
         {
             _profileManagementService.UpdateProfile(profile);
 
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult CreateProfile()
-        {
-            return PartialView("_CreateProfile", new ProfileModel());
+            return PartialView("_ProfileTableRow", profile);
         }
 
         [HttpPost]
-        public ActionResult CreateProfile([Bind(Include = "Id,Name")] ProfileModel profile)
+        public AjaxResult CreateProfile([Bind(Include = "Id,Name")] ProfileModel profile)
         {
             if (ModelState.IsValid)
             {
                 _profileManagementService.CreateProfile(profile);
-                return RedirectToAction("Index");
+                return new AjaxResult(AjaxResultState.OK);
             }
 
-            return PartialView("_CreateProfile", profile);
-            //return Content("Error");
+            return new AjaxResult(AjaxResultState.Error);
         }
 
         [HttpPost]
@@ -54,29 +57,57 @@ namespace Clones.Controllers.Management
             return RedirectToAction("Index");
         }
 
+        public ActionResult IndexAccount()
+        {
+            var accounts = _profileManagementService.GetAccounts();
+
+            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> { ModelList = accounts };
+            model.Add("Profiles", _profileManagementService.GetProfiles());
+
+            return View("AccountIndex", model);
+        }
+
+        public ActionResult GetAccountTable()
+        {
+            var accounts = _profileManagementService.GetAccounts();
+
+            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> { ModelList = accounts };
+            model.Add("Profiles", _profileManagementService.GetProfiles());
+
+            return PartialView("_EditAccountTable", model);
+        }
+
         [HttpPost]
         public ActionResult EditAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
         {
             _profileManagementService.UpdateAccount(account);
 
-            return RedirectToAction("Index");
+            ViewData["profiles"] = _profileManagementService.GetProfiles();
+
+            return PartialView("_AccountTableRow", account);
         }
 
-        public ActionResult CreateAccount(int id)
+        public ActionResult CreateAccount()
         {
-            return PartialView("_CreateAccount", new AccountModel() { ProfileId = id});
+            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> {
+                ModelList = new List<AccountModel> { new AccountModel() }
+            };
+
+            model.Add("Profiles", _profileManagementService.GetProfiles());
+
+            return PartialView("_CreateAccount", model);
         }
 
         [HttpPost]
-        public ActionResult CreateAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
+        public AjaxResult CreateAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
         {
             if (ModelState.IsValid)
             {
                 _profileManagementService.CreateAccount(account);
-                return RedirectToAction("Index");
+                return new AjaxResult(AjaxResultState.OK);
             }
 
-            return PartialView("_CreateAccount", account);
+            return new AjaxResult(AjaxResultState.Error);
         }
 
         [HttpPost]

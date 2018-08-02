@@ -82,8 +82,8 @@ else if (!IsLayoutPageSelected) {
 }
 #>
 
-<button class="j-show btn btn-primary" data-show="#create" style="margin-bottom: 15px;">Create New</button>
-<div id="create" data-create="@($"/{controllerName}/{createActionName}")" style="display: none;">
+<button class="j-show j-create btn btn-primary" data-show="#create" data-create="@($"/{controllerName}/{createActionName}")" style="margin-bottom: 15px;">Create New</button>
+<div id="create" style="display: none;">
 	@{Html.RenderPartial("_Create", <#= "new " + ViewDataTypeName + "()" #>); }
 </div>
 

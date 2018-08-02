@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Application.Models.ProfileModel>
+
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="@($"model-{item.Id}")">
+            @{Html.RenderPartial("_ProfileTableRow", item);}
+        </tr>
+
+                //{ Html.RenderPartial("_EditAccountTable", item.Accounts, new ViewDataDictionary { { "profiles", Model } });}
+
+        @*foreach (var el in item.Accounts)
+        {
+            <tr>
+                @{Html.RenderPartial("_AccountTableRow", el, new ViewDataDictionary { {"profiles", Model } });}
+            </tr>
+        }*@
+
+    }
+</table>
+	
+	<input type="submit" value="Save" class="btn btn-default" />
+}
+

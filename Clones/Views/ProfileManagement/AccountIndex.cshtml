@@ -1,0 +1,38 @@
+﻿@model Clones.Models.BaseViewModel<Application.Models.AccountModel>
+@{
+    var model = Model.ModelList;
+    var modelItem = model.FirstOrDefault();
+
+    var controllerName = "ProfileManagement";
+    var createActionName = "CreateAccount";
+    var getTableActionName = "GetAccountTable";
+    var editActionName = "EditAccount";
+    var deleteActionName = "DeleteAccount";
+}
+
+@{
+	ViewBag.Title = "Accounts Management";
+	var modelForPopup = model.Any() ? model.FirstOrDefault() : new Application.Models.AccountModel();
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<button class="j-show j-create btn btn-primary" data-show="#create" data-create="@($"/{controllerName}/{createActionName}")" style="margin-bottom: 15px;">Create New</button>
+<div id="create" style="display: none;">
+	@{Html.RenderAction("CreateAccount"); }
+</div>
+
+<div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">
+    @{ Html.RenderAction("GetAccountTable");}
+</div>
+
+@Html.Partial("_DeleteModelPopup", modelForPopup)
+
+<div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+

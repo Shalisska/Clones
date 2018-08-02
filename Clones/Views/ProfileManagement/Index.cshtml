@@ -1,6 +1,13 @@
 ﻿@using Clones.Helpers;
 
 @model IEnumerable<Application.Models.ProfileModel>
+@{
+    var controllerName = "ProfileManagement";
+    var createActionName = "CreateProfile";
+    var getTableActionName = "GetTable";
+    var editActionName = "EditProfile";
+    var deleteActionName = "DeleteProfile";
+}
 
 @{
     ViewBag.Title = "Profiles Management";
@@ -8,12 +15,16 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Ajax.ActionLink("Create New Profile", "CreateProfile", new AjaxOptions { UpdateTargetId = "create" })
-</p>
-<div id="create"></div>
+<button class="j-show j-create btn btn-primary" data-show="#create" data-create="@($"/{controllerName}/{createActionName}")" style="margin-bottom: 15px;">Create New Profile</button>
+<div id="create" style="display: none;">
+    @{Html.RenderPartial("_CreateProfile", new Application.Models.ProfileModel()); }
+</div>
 
-<form method="post" id="profile-form">
+<div id="content-table" data-update="@($"/{controllerName}/{getTableActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-delete="@($"/{controllerName}/{deleteActionName}")">
+    @{ Html.RenderPartial("_EditTable");}
+</div>
+
+@*<form method="post" id="profile-form">
     @Html.AntiForgeryToken()
     <p>@Html.DisplayNameFor(model => model.Name)</p>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -23,16 +34,16 @@
         {
             <div class="form-group" id="profile-@(item.Id)">
                 <input type="hidden" id="profile-id-@(item.Id)" name="profile-id-@(item.Id)" value="@(item.Id)" />
-                @Html.HiddenFor(el=>item.Id, new {@id = $"profile-id-{item.Id}", @name= $"profile-id-{item.Id}" })
+                @Html.HiddenFor(el => item.Id, new { @id = $"profile-id-{item.Id}", @name = $"profile-id-{item.Id}" })
 
                 <div class="col-sm-5">
-                    @Html.EditorForNew(el=>item.Name, $"profile-name-{item.Id}", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorForNew(el => item.Name, $"profile-name-{item.Id}", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
 
                 <a id="@($"edit-profile-{item.Id}")" class="btn btn-primary j-save-profile" data-id="@(item.Id)">Save</a>
                 <a id="delete-profile-@(item.Id)" class="btn btn-danger j-delete-profile" data-id="@(item.Id)">Delete</a>
 
-                @Html.ValidationMessageForNew(el=>item.Name, $"profile-name-{item.Id}")
+                @Html.ValidationMessageForNew(el => item.Name, $"profile-name-{item.Id}")
             </div>
             <div style="margin-bottom: 40px;">
                 @foreach (var el in item.Accounts)
@@ -50,13 +61,13 @@
                         <span class="field-validation-valid text-danger" data-valmsg-for="account-name-@(el.Id)" data-valmsg-replace="true"></span>
                     </div>
                 }
-                    <p>
-                        @Ajax.ActionLink("Create New Account", "CreateAccount", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "create" })
-                    </p>
+                <p>
+                    @Ajax.ActionLink("Create New Account", "CreateAccount", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "create" })
+                </p>
             </div>
         }
     </div>
-</form>
+</form>*@
 
 <div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
 

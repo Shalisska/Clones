@@ -164,6 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Util\AjaxResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Management\ManagementController.cs" />
@@ -241,17 +242,20 @@
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\ProfileManagement\Index.cshtml" />
     <Content Include="Views\Management\Index.cshtml" />
-    <Content Include="Views\ProfileManagement\_CreateAccount.cshtml" />
     <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
     <Content Include="Views\StockManagement\Index.cshtml" />
     <Content Include="Views\StockManagement\_CreateStock.cshtml" />
     <Content Include="Views\StockManagement\_StockTableRow.cshtml" />
     <Content Include="Views\StockManagement\_EditTable.cshtml" />
     <Content Include="Views\Shared\_DeleteModelPopup.cshtml" />
+    <Content Include="Views\ProfileManagement\_EditTable.cshtml" />
+    <Content Include="Views\ProfileManagement\_ProfileTableRow.cshtml" />
+    <Content Include="Views\ProfileManagement\_AccountTableRow.cshtml" />
+    <Content Include="Views\ProfileManagement\_EditAccountTable.cshtml" />
+    <Content Include="Views\ProfileManagement\AccountIndex.cshtml" />
+    <Content Include="Views\ProfileManagement\_CreateAccount.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

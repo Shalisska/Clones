@@ -14,6 +14,8 @@ namespace Application.Management.Interfaces
 
         void DeleteProfile(int id);
 
+        IEnumerable<AccountModel> GetAccounts();
+
         void CreateAccount(AccountModel account);
         void UpdateAccount(AccountModel account);
 

@@ -60,6 +60,19 @@ namespace Application.Management
             _profileUOW.Save();
         }
 
+        public IEnumerable<AccountModel> GetAccounts()
+        {
+            var accounts = _profileUOW.Accounts.GetAll();
+
+            List<AccountModel> models = new List<AccountModel>();
+
+            if (accounts != null)
+                foreach (var item in accounts)
+                    models.Add(new AccountModel(item));
+
+            return models;
+        }
+
         public void CreateAccount(AccountModel account)
         {
             _profileUOW.Accounts.Create(account);

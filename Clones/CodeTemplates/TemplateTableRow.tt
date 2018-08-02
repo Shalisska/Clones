@@ -139,11 +139,11 @@ foreach (PropertyMetadata property in ModelMetadata.Properties) {
 <# 
 	if (isControlHtmlAttributesSupported) {
 #>
-	@Html.ValidationMessageForNew(modelItem => item.Name, $"item.<#= property.PropertyName #>-{item.Id}")
+	@Html.ValidationMessageForNew(modelItem => item.<#= property.PropertyName #>, $"item.<#= property.PropertyName #>-{item.Id}")
 <#        
 	} else {
 #>
-	@Html.ValidationMessageForNew(modelItem => item.Name, $"item.<#= property.PropertyName #>-{item.Id}")
+	@Html.ValidationMessageForNew(modelItem => item.<#= property.PropertyName #>, $"item.<#= property.PropertyName #>-{item.Id}")
 <#      
 	}
 #>

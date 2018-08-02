@@ -1,0 +1,29 @@
+﻿@model Clones.Models.BaseViewModel<Application.Models.AccountModel>
+@{
+    var model = Model.ModelList;
+    var modelItem = model.FirstOrDefault();
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(item => modelItem.ProfileId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(item => modelItem.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(item => modelItem.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in model)
+    {
+        <tr id="@($"model-{item.Id}")">
+            @{Html.RenderPartial("_AccountTableRow", item, new ViewDataDictionary { { "profiles", Model.Item["Profiles"] } });}
+        </tr>
+    }
+</table>
+
+

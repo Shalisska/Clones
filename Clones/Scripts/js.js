@@ -184,34 +184,43 @@
         SaveModel($(this));
     });
 
-    $('.j-create-model').click(function (e) {
-        e.preventDefault();
+    var CreateModelManagement = function () {
+        var $createBtn = $('.j-create'),
+            $createBtnPost = $('.j-create-model'),
+            createUrl = $createBtn.data('create'),
+            tableUpdateUrl = $('#content-table').data('update');
 
-        var createUrl = $('#create').data('create');
-        var tableUpdateUrl = $('#content-table').data('update');
+        var CreateModel = function ($this) {
+            var $form = $this.parents('form');
 
-        var $form = $(this).parents('form');
-
-        if ($form.valid()) {
-            $.ajax({
-                url: createUrl,
-                method: 'Post',
-                data: $form.serialize(),
-                success: function (data) {
-                    switch (data.ResultState) {
-                        case 1:
-                            $('#content-table').load(tableUpdateUrl);
-                            $form.trigger('reset');
-                            GetResponseMessage('Create');
-                            break;
-                        default:
-                            console.log('error');
-                            break;
+            if ($form.valid()) {
+                $.ajax({
+                    url: createUrl,
+                    method: 'Post',
+                    data: $form.serialize(),
+                    success: function (data) {
+                        switch (data.ResultState) {
+                            case 1:
+                                $('#content-table').load(tableUpdateUrl);
+                                $form.trigger('reset');
+                                GetResponseMessage('Create');
+                                break;
+                            default:
+                                console.log('error');
+                                break;
+                        }
                     }
-                }
-            });
-        }
-    });
+                });
+            }
+        };
+
+        $createBtnPost.click(function (e) {
+            e.preventDefault();
+            CreateModel($(this));
+        });
+    };
+
+    CreateModelManagement();
 });
 
 function AjaxFormSuccess(data, status, data1) {
