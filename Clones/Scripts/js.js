@@ -8,66 +8,6 @@
         setTimeout(function () { $('#' + time).remove(); }, 2000);
     };
 
-    $('.j-delete-profile').click(function (event) {
-        var id = $(this).attr('data-id');
-
-        var message_tmpl =
-            '<div id="alert-message" style="position: fixed; top: 15px; left: 50%; margin-left: -200px; width: 400px; background: white; border: 2px solid red; z-index: 5000; padding: 15px; text-align: center;">' +
-            'Profile will be delete permanently<br />' +
-            '<button data-id-delete='+id+' id="confirm-delete" class="btn btn-danger" style="margin-top: 30px;">Confirm</button>' +
-            '</div>';
-
-        $('body').append(message_tmpl);
-
-        $('#confirm-delete').click(function () {
-            var id = $(this).attr('data-id-delete');
-
-            if ($('#profile-form').valid()) {
-                $.ajax({
-                    url: '/ProfileManagement/DeleteProfile/' + id,
-                    method: 'Post',
-                    success: function (data, p1, p2) {
-                        //GetResponseMessage(p1);
-
-                        //$('#alert-message').remove();
-
-                        window.location.reload();
-                    }
-                });
-            }
-        });
-    });
-
-    $('.j-delete-account').click(function (event) {
-        var id = $(this).attr('data-id');
-
-        var message_tmpl =
-            '<div id="alert-message" style="position: fixed; top: 15px; left: 50%; margin-left: -200px; width: 400px; background: white; border: 2px solid red; z-index: 5000; padding: 15px; text-align: center;">' +
-            'Account will be delete permanently<br />' +
-            '<button data-id-delete=' + id + ' id="confirm-delete" class="btn btn-danger" style="margin-top: 30px;">Confirm</button>' +
-            '</div>';
-
-        $('body').append(message_tmpl);
-
-        $('#confirm-delete').click(function () {
-            var id = $(this).attr('data-id-delete');
-
-            if ($('#profile-form').valid()) {
-                $.ajax({
-                    url: '/ProfileManagement/DeleteAccount/' + id,
-                    method: 'Post',
-                    success: function (data, p1, p2) {
-                        //GetResponseMessage(p1);
-
-                        //$('#alert-message').remove();
-
-                        window.location.reload();
-                    }
-                });
-            }
-        });
-    });
-
     var SaveModel = function ($this) {
         var dataAttr = $('#content-table').data();
         var id = $this.data('id');

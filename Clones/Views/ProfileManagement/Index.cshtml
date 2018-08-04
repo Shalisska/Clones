@@ -1,6 +1,4 @@
-﻿@using Clones.Helpers;
-
-@model IEnumerable<Application.Models.ProfileModel>
+﻿@model IEnumerable<Application.Models.ProfileModel>
 @{
     var controllerName = "ProfileManagement";
     var createActionName = "CreateProfile";
@@ -11,6 +9,7 @@
 
 @{
     ViewBag.Title = "Profiles Management";
+    var modelForPopup = Model.Any() ? Model.FirstOrDefault() : new Application.Models.ProfileModel();
 }
 
 <h2>@ViewBag.Title</h2>
@@ -25,49 +24,51 @@
 </div>
 
 @*<form method="post" id="profile-form">
-    @Html.AntiForgeryToken()
-    <p>@Html.DisplayNameFor(model => model.Name)</p>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <p>@Html.DisplayNameFor(model => model.Name)</p>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        @foreach (var item in Model)
-        {
-            <div class="form-group" id="profile-@(item.Id)">
-                <input type="hidden" id="profile-id-@(item.Id)" name="profile-id-@(item.Id)" value="@(item.Id)" />
-                @Html.HiddenFor(el => item.Id, new { @id = $"profile-id-{item.Id}", @name = $"profile-id-{item.Id}" })
+        <div class="form-horizontal">
+            @foreach (var item in Model)
+            {
+                <div class="form-group" id="profile-@(item.Id)">
+                    <input type="hidden" id="profile-id-@(item.Id)" name="profile-id-@(item.Id)" value="@(item.Id)" />
+                    @Html.HiddenFor(el => item.Id, new { @id = $"profile-id-{item.Id}", @name = $"profile-id-{item.Id}" })
 
-                <div class="col-sm-5">
-                    @Html.EditorForNew(el => item.Name, $"profile-name-{item.Id}", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-
-                <a id="@($"edit-profile-{item.Id}")" class="btn btn-primary j-save-profile" data-id="@(item.Id)">Save</a>
-                <a id="delete-profile-@(item.Id)" class="btn btn-danger j-delete-profile" data-id="@(item.Id)">Delete</a>
-
-                @Html.ValidationMessageForNew(el => item.Name, $"profile-name-{item.Id}")
-            </div>
-            <div style="margin-bottom: 40px;">
-                @foreach (var el in item.Accounts)
-                {
-                    <div class="form-group" id="account-@(el.Id)">
-                        <input type="hidden" id="account-id-@(el.Id)" name="account-id-@(el.Id)" value="@(el.Id)" />
-
-                        <div class="col-sm-5" style="padding-left: 50px;">
-                            <input type="text" id="account-name-@(el.Id)" name="account-name-@(el.Id)" value="@(el.Name)" class="form-control" style="max-width: none;" required="required" data-val="true" />
-                        </div>
-
-                        <a id="edit-account-@(el.Id)" class="btn btn-primary j-save-account" data-id="@(el.Id)" data-profile-id="@(item.Id)">Save</a>
-                        <a id="delete-account-@(el.Id)" class="btn btn-danger j-delete-account" data-id="@(el.Id)">Delete</a>
-
-                        <span class="field-validation-valid text-danger" data-valmsg-for="account-name-@(el.Id)" data-valmsg-replace="true"></span>
+                    <div class="col-sm-5">
+                        @Html.EditorForNew(el => item.Name, $"profile-name-{item.Id}", new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                }
-                <p>
-                    @Ajax.ActionLink("Create New Account", "CreateAccount", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "create" })
-                </p>
-            </div>
-        }
-    </div>
-</form>*@
+
+                    <a id="@($"edit-profile-{item.Id}")" class="btn btn-primary j-save-profile" data-id="@(item.Id)">Save</a>
+                    <a id="delete-profile-@(item.Id)" class="btn btn-danger j-delete-profile" data-id="@(item.Id)">Delete</a>
+
+                    @Html.ValidationMessageForNew(el => item.Name, $"profile-name-{item.Id}")
+                </div>
+                <div style="margin-bottom: 40px;">
+                    @foreach (var el in item.Accounts)
+                    {
+                        <div class="form-group" id="account-@(el.Id)">
+                            <input type="hidden" id="account-id-@(el.Id)" name="account-id-@(el.Id)" value="@(el.Id)" />
+
+                            <div class="col-sm-5" style="padding-left: 50px;">
+                                <input type="text" id="account-name-@(el.Id)" name="account-name-@(el.Id)" value="@(el.Name)" class="form-control" style="max-width: none;" required="required" data-val="true" />
+                            </div>
+
+                            <a id="edit-account-@(el.Id)" class="btn btn-primary j-save-account" data-id="@(el.Id)" data-profile-id="@(item.Id)">Save</a>
+                            <a id="delete-account-@(el.Id)" class="btn btn-danger j-delete-account" data-id="@(el.Id)">Delete</a>
+
+                            <span class="field-validation-valid text-danger" data-valmsg-for="account-name-@(el.Id)" data-valmsg-replace="true"></span>
+                        </div>
+                    }
+                    <p>
+                        @Ajax.ActionLink("Create New Account", "CreateAccount", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "create" })
+                    </p>
+                </div>
+            }
+        </div>
+    </form>*@
+
+@Html.Partial("_DeleteModelPopup", modelForPopup)
 
 <div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
 
