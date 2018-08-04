@@ -1,57 +1,5 @@
 ﻿$(document).ready(function ()
 {
-    $('.j-save-profile').click(function (event) {
-        event.preventDefault();
-
-        var id = $(this).attr('data-id');
-        var field = $('#profile-' + id);
-
-        if ($('#profile-form').valid()) {
-
-            var data_container = {
-                Id: id,
-                Name: field.find('#profile-name-' + id).val()
-            };
-
-            $.ajax({
-                url: '/ProfileManagement/EditProfile',
-                method: 'Post',
-                data: data_container,
-                success: function (data, p1, p2) {
-                    //GetResponseMessage(p1);
-                    window.location.reload();
-                }
-            });
-        }
-    });
-
-    $('.j-save-account').click(function (event) {
-        event.preventDefault();
-
-        var id = $(this).attr('data-id');
-        var profileId = $(this).attr('data-profile-id');
-        var field = $('#account-' + id);
-
-        if ($('#profile-form').valid()) {
-
-            var data_container = {
-                Id: id,
-                ProfileId: profileId,
-                Name: field.find('#account-name-' + id).val()
-            };
-
-            $.ajax({
-                url: '/ProfileManagement/EditAccount',
-                method: 'Post',
-                data: data_container,
-                success: function (data, p1, p2) {
-                    //GetResponseMessage(p1);
-                    window.location.reload();
-                }
-            });
-        }
-    });
-
     var GetResponseMessage = function (message) {
         var time = Date.now();
         var response_tmpl = '<span id="' + time + '" style="padding: 10px; width: 300px; background: green;">' + message + '</span>';
@@ -223,9 +171,9 @@
     CreateModelManagement();
 });
 
-function AjaxFormSuccess(data, status, data1) {
-    //window.location.reload();
-    console.log(data);
-    console.log(status);
-    console.log(data1);
-}
+//function AjaxFormSuccess(data, status, data1) {
+//    //window.location.reload();
+//    console.log(data);
+//    console.log(status);
+//    console.log(data1);
+//}

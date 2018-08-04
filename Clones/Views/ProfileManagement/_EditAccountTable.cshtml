@@ -4,26 +4,31 @@
     var modelItem = model.FirstOrDefault();
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(item => modelItem.ProfileId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(item => modelItem.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(item => modelItem.Name)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @foreach (var item in model)
-    {
-        <tr id="@($"model-{item.Id}")">
-            @{Html.RenderPartial("_AccountTableRow", item, new ViewDataDictionary { { "profiles", Model.Item["Profiles"] } });}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(item => modelItem.ProfileId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => modelItem.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(item => modelItem.Name)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
 
+        @foreach (var item in model)
+        {
+            <tr id="@($"model-{item.Id}")">
+                @{Html.RenderPartial("_AccountTableRow", item, new ViewDataDictionary { { "profiles", Model.Item["Profiles"] } });}
+            </tr>
+        }
+    </table>
+}
 
