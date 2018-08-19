@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Clones.Models
 {
@@ -43,7 +44,7 @@ namespace Clones.Models
 
     public class GridColumnViewModel
     {
-        public GridColumnViewModel(string propertyName, ControlType columnType, IEnumerable<object> selectList = null)
+        public GridColumnViewModel(string propertyName, ControlType columnType, SelectList selectList = null)
         {
             PropertyName = propertyName;
             ColumnType = columnType;
@@ -52,7 +53,7 @@ namespace Clones.Models
 
         public string PropertyName { get; set; }
         public ControlType ColumnType { get; set; }
-        public IEnumerable<object> SelectList { get; set; }
+        public SelectList SelectList { get; set; }
     }
 
     /// <summary>

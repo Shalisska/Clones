@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Clones.Models;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Clones.Controllers.Management
 {
@@ -18,6 +19,7 @@ namespace Clones.Controllers.Management
             _profileManagementService = profileManagementService;
         }
 
+        #region Profile
         private GridViewModel<ProfileModel> GetGridModel(IEnumerable<ProfileModel> profiles)
         {
             var model = new GridViewModel<ProfileModel>(profiles, "Id");
@@ -81,13 +83,31 @@ namespace Clones.Controllers.Management
 
             return new AjaxResult(AjaxResultState.OK);
         }
+        #endregion
+
+        #region Account
+        private GridViewModel<AccountModel> GetGridModel(IEnumerable<AccountModel> accounts)
+        {
+            var model = new GridViewModel<AccountModel>(accounts.OrderBy(a => a.ProfileId), "Id");
+            var profiles = _profileManagementService.GetProfiles();
+
+            var columns = new List<GridColumnViewModel>
+            {
+                new GridColumnViewModel("Id", ControlType.Hidden),
+                new GridColumnViewModel("ProfileId", ControlType.Select, new SelectList(profiles, "Id", "Name")),
+                new GridColumnViewModel("Name", ControlType.Input)
+            };
+
+            model.Columns = columns;
+
+            return model;
+        }
 
         public ActionResult IndexAccount()
         {
             var accounts = _profileManagementService.GetAccounts();
 
-            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> { ModelList = accounts };
-            model.Add("Profiles", _profileManagementService.GetProfiles());
+            var model = GetGridModel(accounts);
 
             return View("AccountIndex", model);
         }
@@ -95,36 +115,27 @@ namespace Clones.Controllers.Management
         public ActionResult GetAccountTable()
         {
             var accounts = _profileManagementService.GetAccounts();
+            var model = GetGridModel(accounts);
 
-            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> { ModelList = accounts };
-            model.Add("Profiles", _profileManagementService.GetProfiles());
-
-            return PartialView("_EditAccountTable", model);
+            return PartialView("EditTable/_EditTableRows", model);
         }
 
         [HttpPost]
-        public ActionResult EditAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
+        public AjaxResult EditAccounts([Bind(Include = "Id,ProfileId,Name")] IEnumerable<AccountModel> accounts)
         {
-            _profileManagementService.UpdateAccount(account);
+            foreach(var account in accounts)
+            {
+                if (!ModelState.IsValid)
+                    return new AjaxResult(AjaxResultState.Error);
 
-            ViewData["profiles"] = _profileManagementService.GetProfiles();
+                _profileManagementService.UpdateAccount(account);
+            }
 
-            return PartialView("_AccountTableRow", account);
-        }
-
-        public ActionResult CreateAccount()
-        {
-            BaseViewModel<AccountModel> model = new BaseViewModel<AccountModel> {
-                ModelList = new List<AccountModel> { new AccountModel() }
-            };
-
-            model.Add("Profiles", _profileManagementService.GetProfiles());
-
-            return PartialView("_CreateAccount", model);
+            return new AjaxResult(AjaxResultState.OK);
         }
 
         [HttpPost]
-        public AjaxResult CreateAccount([Bind(Include = "Id,ProfileId,Name")] AccountModel account)
+        public AjaxResult CreateAccount([Bind(Include = "ProfileId,Name")] AccountModel account)
         {
             if (ModelState.IsValid)
             {
@@ -136,10 +147,13 @@ namespace Clones.Controllers.Management
         }
 
         [HttpPost]
-        public ActionResult DeleteAccount(int id)
+        public AjaxResult DeleteAccounts(IEnumerable<string> ids)
         {
-            _profileManagementService.DeleteAccount(id);
-            return RedirectToAction("Index");
+            foreach(var id in ids)
+                _profileManagementService.DeleteAccount(Int32.Parse(id));
+
+            return new AjaxResult(AjaxResultState.OK);
         }
+        #endregion
     }
 }

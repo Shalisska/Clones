@@ -24,24 +24,27 @@
         <tr>
             @foreach (var item in columns)
             {
-                <td>
-                    @{
-                        switch (item.ColumnType)
-                        {
-                            case ControlType.Hidden:
-                                @(Html.For(modelItem).Display(item.PropertyName))
-                                @(Html.For(modelItem).Hidden(item.PropertyName))
-                                break;
-                            default:
-                                @(Html.For(modelItem).Editor(item.PropertyName, new { htmlAttributes = new { @class = "form-control" } }))
-                                break;
-                        }
-                        if (item.ColumnType != ControlType.Hidden)
-                        {
-                            @(Html.For(modelItem).ValidationMessage(item.PropertyName))
-                        }
+            <td>
+                @{
+                    switch (item.ColumnType)
+                    {
+                        case ControlType.Hidden:
+                            @(Html.For(modelItem).Display(item.PropertyName))
+                            @(Html.For(modelItem).Hidden(item.PropertyName))
+                            break;
+                        case ControlType.Select:
+                            @(Html.For(modelItem).DropDownList(item.PropertyName, item.SelectList, new Dictionary<string, object> { { "class", "form-control" } }))
+                            break;
+                        default:
+                            @(Html.For(modelItem).Editor(item.PropertyName, new { htmlAttributes = new { @class = "form-control" } }))
+                            break;
                     }
-                </td>
+                    if (item.ColumnType != ControlType.Hidden)
+                    {
+                        @(Html.For(modelItem).ValidationMessage(item.PropertyName))
+                    }
+                }
+            </td>
             }
         </tr>
     </table>

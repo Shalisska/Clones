@@ -27,6 +27,9 @@
                             @(Html.For(m).Display(item.PropertyName))
                             @(Html.For(m).Hidden(item.PropertyName, id, new Dictionary<string, object> { { "class", "j-model-field" }, { "data-name", item.PropertyName } }))
                             break;
+                        case ControlType.Select:
+                            @(Html.For(m).DropDownList(item.PropertyName, item.SelectList, new Dictionary<string, object> { { "class", "form-control j-model-field" }, { "data-name", item.PropertyName } }))
+                            break;
                         default:
                             @(Html.For(m).Editor(item.PropertyName, "", fieldName, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control j-model-field" }, { "data-name", item.PropertyName } } }))
                             break;
