@@ -6,7 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using Application.Management.Interfaces;
 using Application.Models;
+using Clones.Models;
 using Clones.Util;
+using Newtonsoft.Json;
 
 namespace Clones.Controllers.Management
 {
@@ -19,29 +21,49 @@ namespace Clones.Controllers.Management
             _stockManagementService = stockManagementService;
         }
 
+        private GridViewModel<StockModel> GetGridModel(IEnumerable<StockModel> stocks)
+        {
+            var model = new GridViewModel<StockModel>(stocks, "Id");
+
+            var columns = new List<GridColumnViewModel>
+            {
+                new GridColumnViewModel("Id", ControlType.Hidden),
+                new GridColumnViewModel("Name", ControlType.Input)
+            };
+
+            model.Columns = columns;
+
+            return model;
+        }
+
         // GET: StockManagement
         public ActionResult Index()
         {
             var stocks = _stockManagementService.GetStocks();
-            return View(stocks);
+
+            var model = GetGridModel(stocks);
+
+            return View(model);
         }
 
         public ActionResult GetTable()
         {
             var stocks = _stockManagementService.GetStocks();
-            return PartialView("_EditTable", stocks);
+            var model = GetGridModel(stocks);
+            return PartialView("EditTable/_EditTableRows", model);
         }
 
         [HttpPost]
-        public ActionResult EditStock([Bind(Include = "Id,Name")] StockModel stock)
+        public AjaxResult EditStocks([Bind(Include = "Id,Name")] IEnumerable<StockModel> stocks)
         {
-            _stockManagementService.UpdateStock(stock);
+            foreach (var stock in stocks)
+                _stockManagementService.UpdateStock(stock);
 
-            return PartialView("_StockTableRow", stock);
+            return new AjaxResult(AjaxResultState.OK);
         }
 
         [HttpPost]
-        public AjaxResult CreateStock([Bind(Include = "Id,Name")] StockModel stock)
+        public AjaxResult CreateStock([Bind(Include = "Name")] StockModel stock)
         {
             if (ModelState.IsValid)
             {
@@ -53,10 +75,12 @@ namespace Clones.Controllers.Management
         }
 
         [HttpPost]
-        public ActionResult DeleteStock(int id)
+        public AjaxResult DeleteStocks(IEnumerable<string> ids)
         {
-            _stockManagementService.DeleteStock(id);
-            return RedirectToAction("Index");
+            foreach (var id in ids)
+                _stockManagementService.DeleteStock(Int32.Parse(id));
+
+            return new AjaxResult(AjaxResultState.OK);
         }
     }
 }

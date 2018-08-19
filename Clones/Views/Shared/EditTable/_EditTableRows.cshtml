@@ -1,0 +1,43 @@
+﻿@using Clones.Helpers;
+@using Clones.Models;
+
+@model IGridViewModel
+
+@{
+    var columns = Model.Columns;
+    var modelItem = Model.Entities.FirstOrDefault();
+}
+
+@foreach (var m in Model.Entities)
+{
+    var id = Model.EntityType.GetProperty(Model.PrimaryKeyName).GetValue(m, null);
+    <tr id="model-@id" data-id="@id">
+        <td>
+            @Html.CheckBox("delete", new Dictionary<string, object> { { "value", id }, { "class", "j-delete-checkbox" } })
+        </td>
+        @foreach (var item in columns)
+        {
+            <td>
+                @{
+                    var fieldName = $"{item.PropertyName}-{id}";
+
+                    switch (item.ColumnType)
+                    {
+                        case ControlType.Hidden:
+                            @(Html.For(m).Display(item.PropertyName))
+                            @(Html.For(m).Hidden(item.PropertyName, id, new Dictionary<string, object> { { "class", "j-model-field" }, { "data-name", item.PropertyName } }))
+                            break;
+                        default:
+                            @(Html.For(m).Editor(item.PropertyName, "", fieldName, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control j-model-field" }, { "data-name", item.PropertyName } } }))
+                            break;
+                    }
+                    if (item.ColumnType != ControlType.Hidden)
+                    {
+                        @(Html.For(m).ValidationMessage(item.PropertyName, new Dictionary<string, object> { { "data-valmsg-for", fieldName } }))
+                    }
+                }
+            </td>
+
+        }
+    </tr>
+}

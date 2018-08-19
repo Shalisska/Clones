@@ -14,7 +14,8 @@ namespace Clones
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/plugins/jquery.validate*",
-                        "~/Scripts/js.js"));
+                        "~/Scripts/js.js",
+                        "~/Scripts/grid.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

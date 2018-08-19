@@ -1,0 +1,43 @@
+﻿@using Clones.Helpers;
+@using Clones.Models;
+
+@model IGridViewModel
+
+@{
+    var columns = Model.Columns;
+    var modelItem = Model.Entities.FirstOrDefault();
+}
+
+<button class="j-show btn btn-primary" data-show="#create" style="margin-bottom: 15px;">Create New</button>
+<div id="create" style="display: none; padding-bottom: 30px; border-bottom: 1px solid #ddd;">
+    @{ Html.RenderPartial("EditTable/_EditTableCreate");}
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken() @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <table id="edit-table" class="table">
+        <tr>
+            <th>
+                @Html.CheckBox("delete-all", new Dictionary<string, object> { { "id", "delete-all" } })
+            </th>
+            @foreach (var item in columns)
+            {
+                <th>
+                    @(Html.For(modelItem).DisplayName(item.PropertyName))
+                </th>
+            }
+        </tr>
+        <tbody id="edit-table-body" style="border-top-width: 1px;">
+            @{ Html.RenderPartial("EditTable/_EditTableRows");}
+        </tbody>
+
+
+    </table>
+    <button type="button" class="btn btn-default j-save-models">Save</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModel">Delete</button>
+}
+
+<div class="j-response" style="position: fixed; right: 15px; bottom: 30px; color: white;"></div>
+@Html.Partial("_DeleteModelPopup")
