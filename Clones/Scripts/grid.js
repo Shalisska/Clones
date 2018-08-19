@@ -37,6 +37,14 @@ $(document).ready(function () {
         $(hiddenBlock).toggle('hide');
     });
 
+    var numberInputs = 'input[data-val-number]:not([type="hidden"])';
+
+    $('body').on('change', numberInputs, function () {
+        var val = $(this).val();
+        var newVal = val.replace('.', ',');
+        $(this).val(newVal);
+    });
+
     var grid = {
         container: $('#content-table'),
         attrData: $('#content-table').data(),

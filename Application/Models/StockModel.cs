@@ -1,4 +1,5 @@
 ﻿using Application.Adapters;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Models
@@ -10,6 +11,9 @@ namespace Application.Models
         [Required]
         [Display(Name = "Column name")]
         public string Name { get; set; }
+        public List<ResourceModel> Resources { get; set; }
+
+        public IEnumerable<IResourceAdapter> ResourceAdapters { get; set; }
 
         public StockModel() { }
 
@@ -17,6 +21,11 @@ namespace Application.Models
         {
             Id = adapter.Id;
             Name = adapter.Name;
+            Resources = new List<ResourceModel>();
+
+            if (adapter.ResourceAdapters != null)
+                foreach (var item in adapter.ResourceAdapters)
+                    Resources.Add(new ResourceModel(item));
         }
     }
 }

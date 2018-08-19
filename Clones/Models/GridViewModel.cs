@@ -44,7 +44,7 @@ namespace Clones.Models
 
     public class GridColumnViewModel
     {
-        public GridColumnViewModel(string propertyName, ControlType columnType, SelectList selectList = null)
+        public GridColumnViewModel(string propertyName, ControlType columnType = ControlType.Input, SelectList selectList = null)
         {
             PropertyName = propertyName;
             ColumnType = columnType;

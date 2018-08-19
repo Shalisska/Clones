@@ -33,10 +33,10 @@
                             @(Html.For(modelItem).Hidden(item.PropertyName))
                             break;
                         case ControlType.Select:
-                            @(Html.For(modelItem).DropDownList(item.PropertyName, item.SelectList, new Dictionary<string, object> { { "class", "form-control" } }))
+                            @(Html.For(modelItem).DropDownList(item.PropertyName, item.SelectList, new Dictionary<string, object> { { "class", "form-control j-model-field" }, { "data-name", item.PropertyName } }))
                             break;
                         default:
-                            @(Html.For(modelItem).Editor(item.PropertyName, new { htmlAttributes = new { @class = "form-control" } }))
+                            @(Html.For(modelItem).Editor(item.PropertyName, new { htmlAttributes = new Dictionary<string, object> { { "class", "form-control j-model-field" }, { "data-name", item.PropertyName } } }))
                             break;
                     }
                     if (item.ColumnType != ControlType.Hidden)

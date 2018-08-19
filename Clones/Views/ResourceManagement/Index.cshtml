@@ -1,0 +1,25 @@
+﻿@using Clones.Models;
+
+@model IGridViewModel
+@{
+    var controllerName = "ResourceManagement";
+    var createActionName = "CreateResource";
+    var getTableActionName = "GetTable";
+    var editActionName = "EditResources";
+    var deleteActionName = "DeleteResources";
+
+    ViewBag.Title = "Resource Management";
+}
+
+<h2>@ViewBag.Title</h2>
+@Ajax.ActionLink("Update Resources", "UpdateResourcesFromXML", new RouteValueDictionary(), new AjaxOptions { UpdateTargetId = "edit-table-body" }, new Dictionary<string, object> { { "style", "display: inline-block; margin-bottom: 25px;" } })
+
+
+<div id="content-table" data-delete="@($"/{controllerName}/{deleteActionName}")" data-create="@($"/{controllerName}/{createActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-update="@($"/{controllerName}/{getTableActionName}")">
+    @{Html.RenderPartial("EditTable/_EditTable"); }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

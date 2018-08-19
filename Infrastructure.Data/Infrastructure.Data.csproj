@@ -52,13 +52,18 @@
     <Compile Include="EF\ClonesContextEF.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Profile.cs" />
+    <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Stock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\ProfileRepository.cs" />
+    <Compile Include="Repositories\ResourceRepository.cs" />
     <Compile Include="Repositories\StockRepository.cs" />
     <Compile Include="UnitsOfWork\ProfileUnitOfWork.cs" />
+    <Compile Include="UnitsOfWork\ResourceUnitOfWork.cs" />
     <Compile Include="UnitsOfWork\StockUnitOfWork.cs" />
+    <Compile Include="XML\Entities\ResourceXML.cs" />
+    <Compile Include="XML\Repositories\ResourceRepositoryXML.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

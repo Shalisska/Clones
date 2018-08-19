@@ -164,6 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Management\ResourceManagementController.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\GridViewModel.cs" />
     <Compile Include="Util\AjaxResult.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Views\Shared\EditTable\_EditTable.cshtml" />
     <Content Include="Views\Shared\EditTable\_EditTableCreate.cshtml" />
     <Content Include="Views\Shared\EditTable\_EditTableRows.cshtml" />
+    <Content Include="Views\ResourceManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
