@@ -57,8 +57,13 @@ namespace Clones.Controllers.Management
         public AjaxResult EditStocks([Bind(Include = "Id,Name")] IEnumerable<StockModel> stocks)
         {
             foreach (var stock in stocks)
-                _stockManagementService.UpdateStock(stock);
+            {
+                if (!ModelState.IsValid)
+                    return new AjaxResult(AjaxResultState.Error);
 
+                _stockManagementService.UpdateStock(stock);
+            }
+                
             return new AjaxResult(AjaxResultState.OK);
         }
 

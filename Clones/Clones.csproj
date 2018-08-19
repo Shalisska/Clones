@@ -249,7 +249,7 @@
     <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
     <Content Include="Views\StockManagement\Index.cshtml" />
     <Content Include="Views\Shared\_DeleteModelPopup.cshtml" />
-    <Content Include="Views\ProfileManagement\_EditTable.cshtml" />
+    <Content Include="Views\ProfileManagement\_EditTable1.cshtml" />
     <Content Include="Views\ProfileManagement\_ProfileTableRow.cshtml" />
     <Content Include="Views\ProfileManagement\_AccountTableRow.cshtml" />
     <Content Include="Views\ProfileManagement\_EditAccountTable.cshtml" />

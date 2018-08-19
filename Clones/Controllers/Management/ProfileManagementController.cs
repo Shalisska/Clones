@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using Clones.Models;
 using System.Collections.Generic;
+using System;
 
 namespace Clones.Controllers.Management
 {
@@ -17,29 +18,51 @@ namespace Clones.Controllers.Management
             _profileManagementService = profileManagementService;
         }
 
+        private GridViewModel<ProfileModel> GetGridModel(IEnumerable<ProfileModel> profiles)
+        {
+            var model = new GridViewModel<ProfileModel>(profiles, "Id");
+
+            var columns = new List<GridColumnViewModel>
+            {
+                new GridColumnViewModel("Id", ControlType.Hidden),
+                new GridColumnViewModel("Name", ControlType.Input)
+            };
+
+            model.Columns = columns;
+
+            return model;
+        }
+
         // GET: ProfileManagement
         public ActionResult Index()
         {
             var profiles = _profileManagementService.GetProfiles();
-            return View(profiles);
+            var model = GetGridModel(profiles);
+            return View(model);
         }
 
         public ActionResult GetTable()
         {
             var profiles = _profileManagementService.GetProfiles();
-            return PartialView("_EditTable", profiles);
+            var model = GetGridModel(profiles);
+            return PartialView("EditTable/_EditTableRows", model);
         }
 
         [HttpPost]
-        public ActionResult EditProfile([Bind(Include = "Id,Name")] ProfileModel profile)
+        public AjaxResult EditProfiles([Bind(Include = "Id,Name")] IEnumerable<ProfileModel> profiles)
         {
-            _profileManagementService.UpdateProfile(profile);
+            foreach(var profile in profiles)
+            {
+                if (!ModelState.IsValid)
+                    return new AjaxResult(AjaxResultState.Error);
 
-            return PartialView("_ProfileTableRow", profile);
+                _profileManagementService.UpdateProfile(profile);
+            }
+            return new AjaxResult(AjaxResultState.OK);
         }
 
         [HttpPost]
-        public AjaxResult CreateProfile([Bind(Include = "Id,Name")] ProfileModel profile)
+        public AjaxResult CreateProfile([Bind(Include = "Name")] ProfileModel profile)
         {
             if (ModelState.IsValid)
             {
@@ -51,10 +74,12 @@ namespace Clones.Controllers.Management
         }
 
         [HttpPost]
-        public ActionResult DeleteProfile(int id)
+        public AjaxResult DeleteProfiles(IEnumerable<string> ids)
         {
-            _profileManagementService.DeleteProfile(id);
-            return RedirectToAction("Index");
+            foreach(var id in ids)
+                _profileManagementService.DeleteProfile(Int32.Parse(id));
+
+            return new AjaxResult(AjaxResultState.OK);
         }
 
         public ActionResult IndexAccount()
