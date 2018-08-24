@@ -51,6 +51,38 @@ namespace Application.Management
             _stockUOW.Save();
         }
 
+        public IEnumerable<MoneyModel> GetMoneys()
+        {
+            var moneys = _stockUOW.Money.GetAll();
+            List<MoneyModel> models = new List<MoneyModel>();
+
+            if (moneys != null)
+                foreach (var item in moneys)
+                    models.Add(new MoneyModel(item));
+
+            return models;
+        }
+
+        public void CreateMoney(MoneyModel money)
+        {
+            _stockUOW.Money.Create(money);
+            _stockUOW.Save();
+        }
+
+        public void UpdateMoneys(IEnumerable<MoneyModel> moneys)
+        {
+            foreach(var money in moneys)
+                _stockUOW.Money.Update(money);
+            _stockUOW.Save();
+        }
+
+        public void DeleteMoneys(IEnumerable<int> ids)
+        {
+            foreach(var id in ids)
+                _stockUOW.Money.Delete(id);
+            _stockUOW.Save();
+        }
+
         public void Dispose()
         {
             _stockUOW.Dispose();

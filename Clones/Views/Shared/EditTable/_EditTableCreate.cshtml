@@ -4,7 +4,7 @@
 @model IGridViewModel
 
 @{
-    var columns = Model.Columns.Where(c => c.PropertyName != Model.PrimaryKeyName).Select(c => c).ToList();
+    var columns = Model.Columns.ToList();
     var modelItem = Model.CreateNewInstance();
 }
 

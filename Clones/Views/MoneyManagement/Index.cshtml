@@ -1,0 +1,23 @@
+﻿@using Clones.Models;
+
+@model IGridViewModel
+@{
+    var controllerName = "MoneyManagement";
+    var createActionName = "CreateMoney";
+    var getTableActionName = "GetTable";
+    var editActionName = "EditMoneys";
+    var deleteActionName = "DeleteMoneys";
+
+    ViewBag.Title = "Resource Management";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="content-table" data-delete="@($"/{controllerName}/{deleteActionName}")" data-create="@($"/{controllerName}/{createActionName}")" data-save="@($"/{controllerName}/{editActionName}")" data-update="@($"/{controllerName}/{getTableActionName}")">
+    @{Html.RenderPartial("EditTable/_EditTable"); }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

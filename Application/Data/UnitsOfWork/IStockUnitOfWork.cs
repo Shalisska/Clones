@@ -6,6 +6,7 @@ namespace Application.Data.UnitsOfWork
     public interface IStockUnitOfWork : IDisposable
     {
         IStockRepository Stocks { get; }
+        IMoneyRepository Money { get; }
 
         void Save();
     }

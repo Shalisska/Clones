@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\IAccountAdapter.cs" />
+    <Compile Include="Adapters\IMoneyAdapter.cs" />
     <Compile Include="Adapters\IProfileAdapter.cs" />
     <Compile Include="Adapters\IResourceAdapter.cs" />
     <Compile Include="Adapters\IStockAdapter.cs" />
     <Compile Include="Data\Repositories\IAccountRepository.cs" />
+    <Compile Include="Data\Repositories\IMoneyRepository.cs" />
     <Compile Include="Data\Repositories\IProfileRepository.cs" />
     <Compile Include="Data\Repositories\IRepositorySimple.cs" />
     <Compile Include="Data\Repositories\IResourceRepository.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Management\ResourceManagementService.cs" />
     <Compile Include="Management\StockManagementService.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\MoneyModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\ResourceModel.cs" />
     <Compile Include="Models\StockModel.cs" />

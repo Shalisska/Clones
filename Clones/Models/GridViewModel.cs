@@ -20,7 +20,7 @@ namespace Clones.Models
     public class GridViewModel<T> : IGridViewModel
         where T : class
     {
-        public GridViewModel(IEnumerable<T> entities, string primaryKeyName, List<GridColumnViewModel> columns = null)
+        public GridViewModel(IEnumerable<T> entities, string primaryKeyName = "Id", List<GridColumnViewModel> columns = null)
         {
             EntityType = typeof(T);
             Entities = entities;

@@ -10,6 +10,7 @@ namespace Infrastructure.Data.UnitsOfWork
     {
         ClonesContextEF _db;
         StockRepository _stockRepository;
+        MoneyRepository _moneyRepository;
 
         public StockUnitOfWork(string connectionString)
         {
@@ -23,6 +24,16 @@ namespace Infrastructure.Data.UnitsOfWork
                 if (_stockRepository == null)
                     _stockRepository = new StockRepository(_db);
                 return _stockRepository;
+            }
+        }
+
+        public IMoneyRepository Money
+        {
+            get
+            {
+                if (_moneyRepository == null)
+                    _moneyRepository = new MoneyRepository(_db);
+                return _moneyRepository;
             }
         }
 
