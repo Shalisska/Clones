@@ -37,6 +37,16 @@ $(document).ready(function () {
         $(hiddenBlock).toggle('hide');
     });
 
+    $(document).keydown(function(event) {
+        // If Control or Command key is pressed and the S key is pressed
+        // run save function. 83 is the key code for S.
+        if((event.ctrlKey || event.metaKey) && event.which == 83) {
+            // Save Function
+            event.preventDefault();
+            grid.save.saveModels();
+        }
+    });
+
     var numberInputs = 'input[data-val-number]:not([type="hidden"])';
 
     $('body').on('change', numberInputs, function () {
@@ -133,6 +143,9 @@ $(document).ready(function () {
             click: function ($this, e) {
                 e.preventDefault();
 
+                grid.save.saveModels();
+            },
+            saveModels: function () {
                 var $form = $('#edit-table').parent('form');
                 var data = [];
 
