@@ -164,15 +164,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Management\MoneyManagementController.cs" />
-    <Compile Include="Controllers\Management\ResourceManagementController.cs" />
+    <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
+    <Compile Include="Areas\Management\Controllers\MoneyManagementController.cs" />
+    <Compile Include="Areas\Management\Controllers\ResourceManagementController.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\GridViewModel.cs" />
     <Compile Include="Util\AjaxResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Management\ManagementController.cs" />
-    <Compile Include="Controllers\Management\ProfileManagementController.cs" />
-    <Compile Include="Controllers\Management\StockManagementController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
+    <Compile Include="Areas\Management\Controllers\ProfileManagementController.cs" />
+    <Compile Include="Areas\Management\Controllers\StockManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +193,8 @@
     <Content Include="CodeTemplates\MvcView\TableIndex.cs.t4" />
     <Content Include="CodeTemplates\MvcView\TableEdit.cs.t4" />
     <Content Include="CodeTemplates\MvcView\TableRow.cs.t4" />
+    <Content Include="Areas\Management\Views\web.config" />
+    <Content Include="Areas\Management\Views\_ViewStart.cshtml" />
     <None Include="CodeTemplates\MvcView\TableCreate.cs.t4" />
     <Content Include="CodeTemplates\TemplateCreate.tt" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -246,24 +249,27 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
-    <Content Include="Views\ProfileManagement\Index.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\Index.cshtml" />
     <Content Include="Views\Management\Index.cshtml" />
-    <Content Include="Views\ProfileManagement\_CreateProfile.cshtml" />
-    <Content Include="Views\StockManagement\Index.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_CreateProfile.cshtml" />
+    <Content Include="Areas\Management\Views\StockManagement\Index.cshtml" />
     <Content Include="Views\Shared\_DeleteModelPopup.cshtml" />
-    <Content Include="Views\ProfileManagement\_EditTable1.cshtml" />
-    <Content Include="Views\ProfileManagement\_ProfileTableRow.cshtml" />
-    <Content Include="Views\ProfileManagement\_AccountTableRow.cshtml" />
-    <Content Include="Views\ProfileManagement\_EditAccountTable.cshtml" />
-    <Content Include="Views\ProfileManagement\AccountIndex.cshtml" />
-    <Content Include="Views\ProfileManagement\_CreateAccount.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_EditTable1.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_ProfileTableRow.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_AccountTableRow.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_EditAccountTable.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\AccountIndex.cshtml" />
+    <Content Include="Areas\Management\Views\ProfileManagement\_CreateAccount.cshtml" />
     <Content Include="Views\Shared\EditTable\_EditTable.cshtml" />
     <Content Include="Views\Shared\EditTable\_EditTableCreate.cshtml" />
     <Content Include="Views\Shared\EditTable\_EditTableRows.cshtml" />
-    <Content Include="Views\ResourceManagement\Index.cshtml" />
-    <Content Include="Views\MoneyManagement\Index.cshtml" />
+    <Content Include="Areas\Management\Views\ResourceManagement\Index.cshtml" />
+    <Content Include="Areas\Management\Views\MoneyManagement\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Management\Models\" />
+    <Folder Include="Areas\Management\Views\Shared\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

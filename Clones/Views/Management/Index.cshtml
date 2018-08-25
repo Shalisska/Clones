@@ -5,9 +5,9 @@
 
 <h2>@ViewBag.Title</h2>
 <ul>
-    <li>@Html.ActionLink("Profiles", "Index", "ProfileManagement")</li>
-    <li>@Html.ActionLink("Accounts", "IndexAccount", "ProfileManagement")</li>
-    <li>@Html.ActionLink("Stocks", "Index", "StockManagement")</li>
-    <li>@Html.ActionLink("Resources", "Index", "ResourceManagement")</li>
-    <li>@Html.ActionLink("Money", "Index", "MoneyManagement")</li>
+    <li>@Html.ActionLink("Profiles", "Index", new { area = "Management", controller = "ProfileManagement" })</li>
+    <li>@Html.ActionLink("Accounts", "IndexAccount", new { area = "Management", controller = "ProfileManagement" })</li>
+    <li>@Html.ActionLink("Stocks", "Index", new { area = "Management", controller = "StockManagement" })</li>
+    <li>@Html.ActionLink("Resources", "Index", new { area = "Management", controller = "ResourceManagement" })</li>
+    <li>@Html.ActionLink("Money", "Index", new { area = "Management", controller = "MoneyManagement" })</li>
 </ul>

@@ -10,7 +10,7 @@ using Clones.Models;
 using Clones.Util;
 using Newtonsoft.Json;
 
-namespace Clones.Controllers.Management
+namespace Clones.Areas.Management.Controllers
 {
     public class StockManagementController : Controller
     {

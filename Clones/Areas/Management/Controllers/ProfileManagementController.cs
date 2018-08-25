@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace Clones.Controllers.Management
+namespace Clones.Areas.Management.Controllers
 {
     public class ProfileManagementController : Controller
     {

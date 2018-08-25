@@ -8,7 +8,7 @@ using Application.Models;
 using Clones.Models;
 using Clones.Util;
 
-namespace Clones.Controllers.Management
+namespace Clones.Areas.Management.Controllers
 {
     public class MoneyManagementController : Controller
     {
