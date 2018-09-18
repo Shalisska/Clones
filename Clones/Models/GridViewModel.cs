@@ -44,16 +44,23 @@ namespace Clones.Models
 
     public class GridColumnViewModel
     {
-        public GridColumnViewModel(string propertyName, ControlType columnType = ControlType.Input, SelectList selectList = null)
+        public GridColumnViewModel(string propertyName, ControlType columnType = ControlType.Input, SelectList selectList = null, bool isEditable = false, string sortOrder = "", IEnumerable<string> columnValues = null)
         {
             PropertyName = propertyName;
             ColumnType = columnType;
             SelectList = selectList;
+            IsEditable = isEditable;
+            SortOrder = sortOrder;
+            ColumnValues = columnValues;
         }
 
         public string PropertyName { get; set; }
         public ControlType ColumnType { get; set; }
         public SelectList SelectList { get; set; }
+
+        public bool IsEditable { get; set; }
+        public string SortOrder { get; set; }
+        public IEnumerable<string> ColumnValues { get; set; }
     }
 
     /// <summary>

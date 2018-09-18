@@ -24,8 +24,42 @@
             </th>
             @foreach (var item in columns)
             {
-                <th>
-                    @(Html.For(modelItem).DisplayName(item.PropertyName))
+                <th class="column-header">
+                    @*@if (!String.IsNullOrEmpty(item.SortOrder))
+                        {
+                            @Html.ActionLink(item.PropertyName, "GetTable", new RouteValueDictionary { { "sort", $"{item.PropertyName}_{item.SortOrder}" } }, new Dictionary<string, object> { { "class", $"j-sort {item.SortOrder}" }, { "data-name", item.PropertyName }, { "data-sort", item.SortOrder } })
+                        }*@
+                    @if (item.IsEditable)
+                    {
+                        <button class="btn-link j-editable">@item.PropertyName</button>
+                        <div class="j-filters-box filters-box">
+                            <a href="#" class="j-sort @item.SortOrder" data-name="@item.PropertyName" data-sort="@(string.IsNullOrEmpty(item.SortOrder) ? "none" : item.SortOrder)">Sort</a>
+                            <div class="j-filters" data-name="@item.PropertyName">
+                                <div class="checkbox">
+                                    <label>
+                                        <input class="j-filters-checkbox-all" type="checkbox" name="@($"filter_{item.PropertyName}")" data-filter="check-all">
+                                        Check all
+                                    </label>
+                                </div>
+                                <div class="filters-list">
+                                    @foreach (var el in item.ColumnValues)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input class="j-filters-checkbox" type="checkbox" name="@($"filter_{item.PropertyName}")" data-filter="@el.Trim()">
+                                                @el
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <button class="j-filters-apply btn btn-primary btn-xs">Apply</button>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @(Html.For(modelItem).DisplayName(item.PropertyName))
+                    }
                 </th>
             }
         </tr>

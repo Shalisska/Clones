@@ -1,7 +1,9 @@
 ﻿using Application.Data.UnitsOfWork;
 using Application.Management.Interfaces;
 using Application.Models;
+using Application.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Application.Management
 {
@@ -21,7 +23,22 @@ namespace Application.Management
 
             if (resources != null)
                 foreach (var item in resources)
-                    models.Add(new ResourceModel(item));
+                {
+                    models.Add(new ResourceModel(item) { Stock = new StockModel(item.StockAdapter) });
+                }
+
+            return models;
+        }
+
+        public IEnumerable<ResourceModel> GetParametricalResources(TableQueryParameters parameters)
+        {
+            var resources = _resourceUOW.Resources.GetAllWithParameters(parameters).ToList();
+
+            List<ResourceModel> models = new List<ResourceModel>();
+
+            if (resources != null)
+                foreach (var item in resources)
+                    models.Add(new ResourceModel(item) { Stock = new StockModel(item.StockAdapter) });
 
             return models;
         }

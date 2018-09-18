@@ -91,7 +91,7 @@ $(document).ready(function () {
                     success: function (data) {
                         switch (data.ResultState) {
                             case 1:
-                                $('#edit-table-body').load(grid.attrData.update);
+                                grid.tableParameters.sendRequest(grid.tableParameters.getTableParameters());
                                 responseMessage('Delete');
                                 break;
                             default:
@@ -121,7 +121,7 @@ $(document).ready(function () {
                         success: function (data) {
                             switch (data.ResultState) {
                                 case 1:
-                                    $('#edit-table-body').load(grid.attrData.update);
+                                    grid.tableParameters.sendRequest(grid.tableParameters.getTableParameters());
                                     $form.trigger('reset');
                                     responseMessage('Create');
                                     break;
@@ -174,7 +174,7 @@ $(document).ready(function () {
                         success: function (data) {
                             switch (data.ResultState) {
                                 case 1:
-                                    $('#edit-table-body').load(grid.attrData.update);
+                                    grid.tableParameters.sendRequest(grid.tableParameters.getTableParameters());
                                     responseMessage('Save');
                                     break;
                                 default:
@@ -198,11 +198,179 @@ $(document).ready(function () {
             }
         },
 
+        filtersBlock: {
+            btn: '.j-editable',
+            container: '.j-filters-box',
+            click: function($this, e) {
+                e.preventDefault();
+
+                var $container = $this.siblings(grid.filtersBlock.container);
+
+                if ($container.hasClass('active'))
+                    $container.removeClass('active');
+                else {
+                    $(grid.filtersBlock.container).removeClass('active');
+                    $container.addClass('active');
+                }
+            },
+            init: function () {
+                eventsData.push(buildEventData(grid.container, 'click', this.btn, this.click));
+            }
+        },
+
+        tableParameters: {
+            storage: {
+                sort: {},
+                filters: {
+                    byName: []
+                }
+            },
+
+            addSortParameter: function (name, value, isRequest = true) {
+                var sortParameters = grid.tableParameters.storage.sort;
+
+                if (sortParameters[name])
+                    delete sortParameters[name];
+
+                if (value !== "none")
+                    sortParameters[name] = value;
+
+                if (isRequest)
+                    grid.tableParameters.sendRequest(grid.tableParameters.getTableParameters());
+            },
+
+            addFilterParameters: function (name, values) {
+                var filterParameters = grid.tableParameters.storage.filters;
+                var filterParametersByName = filterParameters.byName;
+
+                filterParametersByName = jQuery.grep(filterParametersByName, function (value) {
+                    return value.Key != name;
+                });
+
+                if (values.byName.length > 0)
+                    filterParametersByName.push({ Key: name, Value: values.byName });
+
+                grid.tableParameters.storage.filters.byName = filterParametersByName;
+                grid.tableParameters.sendRequest(grid.tableParameters.getTableParameters());
+            },
+
+            getTableParameters: function () {
+                return grid.tableParameters.storage;
+            },
+
+            sendRequest: function (tableParameters) {
+                $.ajax({
+                    url: grid.attrData.update,
+                    method: 'Post',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(tableParameters),
+                    success: function (data) {
+                        $('#edit-table-body').html(data);
+                    }
+                });
+            }
+        },
+
+        sort: {
+            sender: '.j-sort',
+            click: function ($this, e) {
+                e.preventDefault();
+
+                grid.sort.changeSort($this);
+            },
+            changeSort: function ($this) {
+                var parameterName = $this.data().name;
+                var oldSortingOrder = $this.attr('data-sort');
+                var newSortingOrder = grid.sort.getNextSortingOrderValue(oldSortingOrder);
+
+                grid.tableParameters.addSortParameter(parameterName, newSortingOrder);
+                grid.sort.update($this, oldSortingOrder, newSortingOrder);
+            },
+            update: function ($this, oldSortingOrder, newSortingOrder) {
+                $this.attr('data-sort', newSortingOrder);
+
+                $this.removeClass(oldSortingOrder);
+                $this.addClass(newSortingOrder);
+            },
+            getNextSortingOrderValue: function (sortingOrderValue) {
+                switch (sortingOrderValue) {
+                    case 'none':
+                        return 'up';
+                    case 'up':
+                        return 'down';
+                    case 'down':
+                        return 'none';
+                    default:
+                        return 'up';
+                };
+            },
+            getSortingValues: function () {
+                $(this.sender).each(function () {
+                    var $this = $(this);
+                    var sortValue = $this.attr('data-sort');
+
+                    if (sortValue !== 'none')
+                        grid.tableParameters.addSortParameter($this.data().name, sortValue, false);
+                });
+            },
+            init: function () {
+                eventsData.push(buildEventData(grid.container, 'click', this.sender, this.click));
+                grid.sort.getSortingValues();
+            }
+        },
+        filters: {
+            container: '.j-filters',
+            btn: '.j-filters-apply',
+            btnCheckAll: '.j-filters-checkbox-all',
+            click: function ($this, e) {
+                e.preventDefault();
+
+                grid.filters.changeFilter($this);
+            },
+            changeFilter: function ($this) {
+                var container = $this.parent(this.container);
+                var columnName = $(container).data().name;
+
+                var values = {
+                    byName: this.getFilterValuesByName($this, container)
+                };
+
+                grid.tableParameters.addFilterParameters(columnName, values);
+            },
+
+            getFilterValuesByName: function ($this, container) {
+                var checkboxes = container.find('.j-filters-checkbox').filter(':checked');
+                var values = [];
+
+                $(checkboxes).each(function () {
+                    values.push($(this).data().filter);
+                });
+                return values;
+            },
+            getFilterValuesByString: function ($this, container) { },
+            getFilterValuesByRange: function ($this, container) { },
+
+
+            clickCheckAll: function ($this, e) {
+                var $checkItem = $this.parents(grid.filters.container).find('.j-filters-checkbox');
+                var check = $this.prop('checked');
+                $checkItem.prop('checked', check);
+            },
+
+            init: function () {
+                eventsData.push(buildEventData(grid.container, 'click', this.btn, this.click));
+                eventsData.push(buildEventData(grid.container, 'click', this.btnCheckAll, this.clickCheckAll));
+            }
+        },
+
         init: function () {
             this.deleteCheck.init();
             this.deleteConfirm.init();
             this.create.init();
             this.save.init();
+            this.sort.init();
+            this.filters.init();
+            this.filtersBlock.init();
         }
     };
 

@@ -11,6 +11,9 @@ namespace Application.Models
         public int StockId { get; set; }
         [Required]
         public string Name { get; set; }
+
+        public StockModel Stock { get; set; }
+
         [Required]
         [DisplayFormat(ApplyFormatInEditMode = true,
                DataFormatString = "{0:0.0000}")]
@@ -19,6 +22,8 @@ namespace Application.Models
         [DisplayFormat(ApplyFormatInEditMode = true,
                DataFormatString = "{0:0.0000}")]
         public decimal Price { get; set; }
+
+        public IStockAdapter StockAdapter { get; set; }
 
         public ResourceModel() { }
 

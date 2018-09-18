@@ -8,9 +8,9 @@ namespace Infrastructure.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public IEnumerable<IResourceAdapter> ResourceAdapters { get; set; }
-
         public virtual ICollection<Resource> Resources { get; set; }
+
+        public IEnumerable<IResourceAdapter> ResourceAdapters { get => Resources as IEnumerable<IResourceAdapter>; }
 
         public Stock()
         {

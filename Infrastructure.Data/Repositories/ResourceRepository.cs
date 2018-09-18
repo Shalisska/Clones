@@ -1,7 +1,9 @@
 ﻿using Application.Adapters;
 using Application.Data.Repositories;
+using Application.Data;
 using Infrastructure.Data.EF;
 using Infrastructure.Data.Entities;
+using Infrastructure.Data.Helpers;
 using Infrastructure.Data.XML.Entities;
 using Infrastructure.Data.XML.Repositories;
 using System.Collections.Generic;
@@ -23,7 +25,27 @@ namespace Infrastructure.Data.Repositories
 
         public IEnumerable<IResourceAdapter> GetAll()
         {
+            var res = _db.Resources.ToList();
+            var r = res.FirstOrDefault().Stock;
+
             return _db.Resources.ToList();
+        }
+
+        public IEnumerable<IResourceAdapter> GetAllWithParameters(TableQueryParameters parameters)
+        {
+            var tableName = "Resources";
+
+            var specialConditions = new List<ConditionsForFK>()
+            {
+                new ConditionsForFK(
+                "StockId",
+                " join Stocks on Stocks.Id=Resources.StockId",
+                "Stocks.Name")
+            };
+
+            var queryBuilder = new QueryBuilder<Resource>(tableName, parameters, specialConditions);
+            var query = queryBuilder.GetQueryWithParameters();
+            return _db.Resources.SqlQuery(query);
         }
 
         public IResourceAdapter Get(int id)

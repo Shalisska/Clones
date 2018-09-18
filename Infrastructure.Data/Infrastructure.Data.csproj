@@ -55,6 +55,8 @@
     <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Stock.cs" />
+    <Compile Include="Helpers\ConditionsForFK.cs" />
+    <Compile Include="Helpers\QueryBuilder.cs" />
     <Compile Include="Migrations\201808242309247_InitialMigration.cs" />
     <Compile Include="Migrations\201808242309247_InitialMigration.Designer.cs">
       <DependentUpon>201808242309247_InitialMigration.cs</DependentUpon>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Application.Management.Interfaces;
 using Application.Models;
+using Application.Data;
 using Clones.Models;
 using Clones.Util;
 
@@ -25,14 +26,19 @@ namespace Clones.Areas.Management.Controllers
 
         private GridViewModel<ResourceModel> GetGridModel(IEnumerable<ResourceModel> resources)
         {
-            var model = new GridViewModel<ResourceModel>(resources.OrderBy(r=>r.StockId), "Id");
+            var model = new GridViewModel<ResourceModel>(resources, "Id");
             var stocks = _stockManagementService.GetStocks();
+
+            var stocksId = new HashSet<int>(resources.Select(r => r.StockId).ToList());
+            List<string> stocksWithResourcesNames = new List<string>();
+            foreach(var id in stocksId)
+                stocksWithResourcesNames.Add(stocks.Where(s=>s.Id==id).Select(s=>s.Name).FirstOrDefault());
 
             var columns = new List<GridColumnViewModel>
             {
                 new GridColumnViewModel("Id", ControlType.Hidden),
-                new GridColumnViewModel("StockId", ControlType.Select, new SelectList(stocks, "Id", "Name")),
-                new GridColumnViewModel("Name", ControlType.Input),
+                new GridColumnViewModel("StockId", ControlType.Select, new SelectList(stocks, "Id", "Name"), true, columnValues: stocksWithResourcesNames.OrderBy(s => s)),
+                new GridColumnViewModel("Name", ControlType.Input, isEditable: true, columnValues: resources.Select(n => n.Name).OrderBy(n => n)),
                 new GridColumnViewModel("PriceBase", ControlType.Input),
                 new GridColumnViewModel("Price", ControlType.Input)
             };
@@ -52,6 +58,14 @@ namespace Clones.Areas.Management.Controllers
         public ActionResult GetTable()
         {
             var resources = _resourceManagementService.GetResources();
+            var model = GetGridModel(resources);
+            return PartialView("EditTable/_EditTableRows", model);
+        }
+
+        [HttpPost]
+        public ActionResult GetTable(TableQueryParameters parameters)
+        {
+            var resources = _resourceManagementService.GetParametricalResources(parameters);
             var model = GetGridModel(resources);
             return PartialView("EditTable/_EditTableRows", model);
         }
