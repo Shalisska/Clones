@@ -13,8 +13,6 @@ namespace Infrastructure.Data.Entities
 
         public virtual Stock Stock { get; set; }
 
-        public IStockAdapter StockAdapter { get => Stock as IStockAdapter; }
-
         public Resource() { }
 
         public Resource(IResourceAdapter adapter) : this()

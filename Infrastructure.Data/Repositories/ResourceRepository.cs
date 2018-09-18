@@ -25,9 +25,6 @@ namespace Infrastructure.Data.Repositories
 
         public IEnumerable<IResourceAdapter> GetAll()
         {
-            var res = _db.Resources.ToList();
-            var r = res.FirstOrDefault().Stock;
-
             return _db.Resources.ToList();
         }
 

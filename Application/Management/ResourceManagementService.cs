@@ -23,9 +23,7 @@ namespace Application.Management
 
             if (resources != null)
                 foreach (var item in resources)
-                {
-                    models.Add(new ResourceModel(item) { Stock = new StockModel(item.StockAdapter) });
-                }
+                    models.Add(new ResourceModel(item));
 
             return models;
         }
@@ -38,7 +36,7 @@ namespace Application.Management
 
             if (resources != null)
                 foreach (var item in resources)
-                    models.Add(new ResourceModel(item) { Stock = new StockModel(item.StockAdapter) });
+                    models.Add(new ResourceModel(item));
 
             return models;
         }

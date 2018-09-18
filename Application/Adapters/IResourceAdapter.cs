@@ -4,7 +4,6 @@
     {
         int Id { get; }
         int StockId { get; }
-        IStockAdapter StockAdapter { get; }
 
         string Name { get; }
 

@@ -181,10 +181,6 @@
     <Compile Include="Util\IoCModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ClonesTest.mdf" />
-    <Content Include="App_Data\ClonesTest_log.ldf">
-      <DependentUpon>ClonesTest.mdf</DependentUpon>
-    </Content>
     <Content Include="CodeTemplates\TemplateTableRow.tt" />
     <Content Include="CodeTemplates\TemplateTable.tt" />
     <Content Include="CodeTemplates\TemplateTableIndex.tt" />
@@ -267,6 +263,7 @@
     <Content Include="Areas\Management\Views\MoneyManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Management\Models\" />
     <Folder Include="Areas\Management\Views\Shared\" />
   </ItemGroup>

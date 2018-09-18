@@ -57,9 +57,9 @@
     <Compile Include="Entities\Stock.cs" />
     <Compile Include="Helpers\ConditionsForFK.cs" />
     <Compile Include="Helpers\QueryBuilder.cs" />
-    <Compile Include="Migrations\201808242309247_InitialMigration.cs" />
-    <Compile Include="Migrations\201808242309247_InitialMigration.Designer.cs">
-      <DependentUpon>201808242309247_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201809180935128_CreateBase.cs" />
+    <Compile Include="Migrations\201809180935128_CreateBase.Designer.cs">
+      <DependentUpon>201809180935128_CreateBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +90,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808242309247_InitialMigration.resx">
-      <DependentUpon>201808242309247_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809180935128_CreateBase.resx">
+      <DependentUpon>201809180935128_CreateBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

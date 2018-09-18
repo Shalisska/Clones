@@ -65,7 +65,7 @@ namespace Clones.Areas.Management.Controllers
         }
 
         [HttpPost]
-        public AjaxResult EditMoney(IEnumerable<MoneyModel> money)
+        public AjaxResult EditMoneys(IEnumerable<MoneyModel> money)
         {
             List<MoneyModel> moneyToUpdate = new List<MoneyModel>();
             List<MoneyModel> errors = new List<MoneyModel>();
@@ -86,7 +86,7 @@ namespace Clones.Areas.Management.Controllers
         }
 
         [HttpPost]
-        public AjaxResult DeleteMoney(IEnumerable<string> ids)
+        public AjaxResult DeleteMoneys(IEnumerable<string> ids)
         {
             var idsInt = ids.Select(i => Int32.Parse(i));
 
