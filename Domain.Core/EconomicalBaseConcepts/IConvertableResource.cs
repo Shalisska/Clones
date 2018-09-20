@@ -1,4 +1,4 @@
-﻿namespace Domain.Core.EconomicalBaseNotions
+﻿namespace Domain.Core.EconomicalBaseConcepts
 {
     /// <summary>
     /// Ресурс, который можно использовать в транзакциях

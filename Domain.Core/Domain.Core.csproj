@@ -40,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EconomicalBaseNotions\IConvertableResource.cs" />
-    <Compile Include="EconomicalBaseNotions\IEconomicalResource.cs" />
-    <Compile Include="EconomicalBaseNotions\ITransaction.cs" />
-    <Compile Include="EconomicalBaseNotions\ITransactionPart.cs" />
+    <Compile Include="EconomicalBaseConcepts\IConvertableResource.cs" />
+    <Compile Include="EconomicalBaseConcepts\IEconomicalResource.cs" />
+    <Compile Include="EconomicalBaseConcepts\ITransaction.cs" />
+    <Compile Include="EconomicalBaseConcepts\ITransactionPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
