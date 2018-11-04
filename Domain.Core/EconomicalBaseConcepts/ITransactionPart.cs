@@ -8,7 +8,7 @@
         /// <summary>
         /// Ресурс
         /// </summary>
-        IConvertableResource Resource { get; }
+        IEconomicalResource Resource { get; }
 
         /// <summary>
         /// Количество

@@ -7,7 +7,7 @@ using Application.Adapters;
 
 namespace Application.Data.Repositories
 {
-    public interface IMoneyRepository : IRepositorySimple<IMoneyAdapter>
+    public interface ICurrencyRepository : IRepositorySimple<ICurrencyAdapter>
     {
     }
 }

@@ -11,40 +11,40 @@ using Infrastructure.Data.Entities;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class MoneyRepository : IMoneyRepository
+    public class CurrencyRepository : ICurrencyRepository
     {
         private ClonesContextEF _db;
 
-        public MoneyRepository(ClonesContextEF context)
+        public CurrencyRepository(ClonesContextEF context)
         {
             _db = context;
         }
 
-        public IEnumerable<IMoneyAdapter> GetAll()
+        public IEnumerable<ICurrencyAdapter> GetAll()
         {
             return _db.Money.ToList();
         }
 
-        public IMoneyAdapter Get(int id)
+        public ICurrencyAdapter Get(int id)
         {
             return _db.Money.Find(id);
         }
 
-        public void Create(IMoneyAdapter item)
+        public void Create(ICurrencyAdapter item)
         {
-            Money money = new Money(item);
+            Currency money = new Currency(item);
             _db.Money.Add(money);
         }
 
-        public void Update(IMoneyAdapter item)
+        public void Update(ICurrencyAdapter item)
         {
-            Money money = new Money(item);
+            Currency money = new Currency(item);
             _db.Entry(money).State= EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            Money money = _db.Money.Find(id);
+            Currency money = _db.Money.Find(id);
             if (money != null)
                 _db.Money.Remove(money);
         }

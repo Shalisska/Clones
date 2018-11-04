@@ -40,7 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Social\ClonesBlock.cs" />
+    <Compile Include="Entities\Social\Clones\Characteristic.cs" />
+    <Compile Include="Entities\Social\Clones\MilitarySkill.cs" />
+    <Compile Include="Entities\Social\Clones\Skill.cs" />
+    <Compile Include="Entities\Social\Clones\SocialStatus.cs" />
+    <Compile Include="Entities\Account.cs" />
+    <Compile Include="Entities\SocialModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\Social\Clones\Clone.cs" />
+    <Compile Include="Resources\Currency.cs" />
+    <Compile Include="Resources\Tool.cs" />
+    <Compile Include="Resources\Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Core\Domain.Core.csproj">
+      <Project>{25c1bac3-719f-4f98-bf11-c3d7938a43e0}</Project>
+      <Name>Domain.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

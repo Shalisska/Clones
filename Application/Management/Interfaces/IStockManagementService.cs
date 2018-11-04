@@ -13,12 +13,12 @@ namespace Application.Management.Interfaces
 
         void DeleteStock(int id);
 
-        IEnumerable<MoneyModel> GetMoneys();
+        IEnumerable<CurrencyModel> GetCurrencies();
 
-        void CreateMoney(MoneyModel money);
-        void UpdateMoneys(IEnumerable<MoneyModel> moneys);
+        void CreateCurrency(CurrencyModel money);
+        void UpdateCurrencies(IEnumerable<CurrencyModel> moneys);
 
-        void DeleteMoneys(IEnumerable<int> ids);
+        void DeleteCurrencies(IEnumerable<int> ids);
 
         void Dispose();
     }

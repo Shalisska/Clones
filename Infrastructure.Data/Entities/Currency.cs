@@ -9,7 +9,7 @@ using Application.Adapters;
 
 namespace Infrastructure.Data.Entities
 {
-    public class Money : IMoneyAdapter
+    public class Currency : ICurrencyAdapter
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
@@ -22,9 +22,9 @@ namespace Infrastructure.Data.Entities
 
         public virtual Stock Stock { get; set; }
 
-        public Money() { }
+        public Currency() { }
 
-        public Money(IMoneyAdapter adapter)
+        public Currency(ICurrencyAdapter adapter)
         {
             Id = adapter.Id;
             Name = adapter.Name;

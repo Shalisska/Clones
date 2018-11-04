@@ -19,9 +19,9 @@ namespace Clones.Areas.Management.Controllers
             _stockManagementService = stockManagementService;
         }
 
-        private GridViewModel<MoneyModel> GetGridViewModel(IEnumerable<MoneyModel> money)
+        private GridViewModel<CurrencyModel> GetGridViewModel(IEnumerable<CurrencyModel> money)
         {
-            var model = new GridViewModel<MoneyModel>(money);
+            var model = new GridViewModel<CurrencyModel>(money);
             var stocks = _stockManagementService.GetStocks();
 
             var columns = new List<GridColumnViewModel>
@@ -40,24 +40,24 @@ namespace Clones.Areas.Management.Controllers
 
         public ActionResult Index()
         {
-            var money = _stockManagementService.GetMoneys();
+            var money = _stockManagementService.GetCurrencies();
             var model = GetGridViewModel(money);
             return View(model);
         }
 
         public ActionResult GetTable()
         {
-            var money = _stockManagementService.GetMoneys();
+            var money = _stockManagementService.GetCurrencies();
             var model = GetGridViewModel(money);
             return PartialView("EditTable/_EditTableRows", model);
         }
 
         [HttpPost]
-        public AjaxResult CreateMoney(MoneyModel money)
+        public AjaxResult CreateMoney(CurrencyModel money)
         {
             if (ModelState.IsValid)
             {
-                _stockManagementService.CreateMoney(money);
+                _stockManagementService.CreateCurrency(money);
                 return new AjaxResult(AjaxResultState.OK);
             }
 
@@ -65,10 +65,10 @@ namespace Clones.Areas.Management.Controllers
         }
 
         [HttpPost]
-        public AjaxResult EditMoneys(IEnumerable<MoneyModel> money)
+        public AjaxResult EditMoneys(IEnumerable<CurrencyModel> money)
         {
-            List<MoneyModel> moneyToUpdate = new List<MoneyModel>();
-            List<MoneyModel> errors = new List<MoneyModel>();
+            List<CurrencyModel> moneyToUpdate = new List<CurrencyModel>();
+            List<CurrencyModel> errors = new List<CurrencyModel>();
 
             foreach (var m in money)
                 if (ModelState.IsValid)
@@ -77,7 +77,7 @@ namespace Clones.Areas.Management.Controllers
                     errors.Add(m);
 
             if (moneyToUpdate.Count > 0)
-                _stockManagementService.UpdateMoneys(moneyToUpdate);
+                _stockManagementService.UpdateCurrencies(moneyToUpdate);
 
             if (errors.Count > 0)
                 return new AjaxResult(AjaxResultState.Error, errors);
@@ -90,7 +90,7 @@ namespace Clones.Areas.Management.Controllers
         {
             var idsInt = ids.Select(i => Int32.Parse(i));
 
-            _stockManagementService.DeleteMoneys(idsInt);
+            _stockManagementService.DeleteCurrencies(idsInt);
 
             return new AjaxResult(AjaxResultState.OK);
         }

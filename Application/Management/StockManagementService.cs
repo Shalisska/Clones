@@ -51,32 +51,32 @@ namespace Application.Management
             _stockUOW.Save();
         }
 
-        public IEnumerable<MoneyModel> GetMoneys()
+        public IEnumerable<CurrencyModel> GetCurrencies()
         {
             var moneys = _stockUOW.Money.GetAll();
-            List<MoneyModel> models = new List<MoneyModel>();
+            List<CurrencyModel> models = new List<CurrencyModel>();
 
             if (moneys != null)
                 foreach (var item in moneys)
-                    models.Add(new MoneyModel(item));
+                    models.Add(new CurrencyModel(item));
 
             return models;
         }
 
-        public void CreateMoney(MoneyModel money)
+        public void CreateCurrency(CurrencyModel money)
         {
             _stockUOW.Money.Create(money);
             _stockUOW.Save();
         }
 
-        public void UpdateMoneys(IEnumerable<MoneyModel> moneys)
+        public void UpdateCurrencies(IEnumerable<CurrencyModel> moneys)
         {
             foreach(var money in moneys)
                 _stockUOW.Money.Update(money);
             _stockUOW.Save();
         }
 
-        public void DeleteMoneys(IEnumerable<int> ids)
+        public void DeleteCurrencies(IEnumerable<int> ids)
         {
             foreach(var id in ids)
                 _stockUOW.Money.Delete(id);

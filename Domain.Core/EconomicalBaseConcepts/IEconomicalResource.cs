@@ -6,6 +6,13 @@
     public interface IEconomicalResource
     {
         /// <summary>
+        /// Наименование
+        /// </summary>
+        string Name { get; }
+
+        decimal Value { get; }
+
+        /// <summary>
         /// Базовая стоимость
         /// </summary>
         decimal BasePrice { get; }

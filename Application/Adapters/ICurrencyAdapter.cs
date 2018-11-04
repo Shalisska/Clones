@@ -2,7 +2,7 @@
 
 namespace Application.Adapters
 {
-    public interface IMoneyAdapter
+    public interface ICurrencyAdapter
     {
         int Id { get; }
         string Name { get; }

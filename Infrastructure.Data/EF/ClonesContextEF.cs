@@ -15,7 +15,7 @@ namespace Infrastructure.Data.EF
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Resource> Resources { get; set; }
-        public DbSet<Money> Money { get; set; }
+        public DbSet<Currency> Money { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -7,7 +7,7 @@ using Application.Adapters;
 
 namespace Application.Models
 {
-    public class MoneyModel : IMoneyAdapter
+    public class CurrencyModel : ICurrencyAdapter
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,9 +17,9 @@ namespace Application.Models
 
         public int StockId { get; set; }
 
-        public MoneyModel() { }
+        public CurrencyModel() { }
 
-        public MoneyModel(IMoneyAdapter adapter)
+        public CurrencyModel(ICurrencyAdapter adapter)
         {
             Id = adapter.Id;
             Name = adapter.Name;
